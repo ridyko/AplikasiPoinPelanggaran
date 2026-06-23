@@ -25,35 +25,61 @@
         .kop-surat {
             display: flex;
             align-items: center;
-            border-bottom: 3.5px solid #000;
-            padding-bottom: 15px;
+            border-bottom: 2.5px solid #000000;
+            padding-bottom: 8px;
             margin-bottom: 30px;
+            font-family: Arial, Helvetica, sans-serif !important;
+            color: #000000;
+        }
+
+        .kop-logo {
+            width: 85px;
+            height: auto;
+            margin-right: 15px;
+            filter: grayscale(1) contrast(1.1);
         }
 
         .kop-text {
-            text-align: center;
             flex: 1;
+            text-align: center;
+            position: relative;
+            padding-right: 85px; /* balances the logo margin on the left for perfect centering */
         }
 
-        .kop-text h2 {
-            font-size: 13pt;
-            margin: 0 0 5px 0;
+        .kop-provinsi {
+            font-size: 12pt;
             font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .kop-text h1 {
-            font-size: 16pt;
-            margin: 0 0 5px 0;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .kop-text p {
-            font-size: 9.5pt;
             margin: 0;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .kop-sekolah {
+            font-size: 15pt;
+            font-weight: bold;
+            margin: 2px 0;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .kop-detail {
+            font-size: 9.5pt;
+            margin: 1px 0;
             line-height: 1.3;
+        }
+
+        .kop-kota {
+            font-size: 11pt;
+            font-weight: bold;
+            margin: 2px 0 0 0;
+            text-transform: uppercase;
+        }
+
+        .kop-kodepos {
+            font-size: 9.5pt;
+            text-align: right;
+            margin-top: 4px;
+            margin-right: -85px; /* aligns to the edge of the container */
         }
 
         /* Document Title */
@@ -168,11 +194,15 @@
 <div class="container">
     <!-- Kop Surat -->
     <div class="kop-surat">
+        <img class="kop-logo" src="{{ asset('images/jakarta-logo.png') }}" alt="Logo DKI Jakarta">
         <div class="kop-text">
-            <h2>Pemerintah Provinsi DKI Jakarta</h2>
-            <h1 style="font-size: 18pt;">SMK Negeri 2 Jakarta</h1>
-            <p>Bidang Keahlian: Teknologi Informasi, Bisnis dan Manajemen, Pariwisata</p>
-            <p>Jl. Gajah Mada No.139, Jakarta Pusat | Telp: (021) 6341234 | Email: info@smkn2jkt.sch.id</p>
+            <div class="kop-provinsi">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</div>
+            <div class="kop-sekolah">SEKOLAH MENENGAH KEJURUSAN NEGERI 2</div>
+            <div class="kop-detail">Bidang Keahlian : Bisnis, Manajemen dan Teknik Informatika</div>
+            <div class="kop-detail">Jalan Batu No. 3 Gambir, Telp. 3846219, 3520860 Fax 3520860</div>
+            <div class="kop-detail">Website:http://www.smkn2jkt.sch.id Email:humas@smkn2jkt.sch.id</div>
+            <div class="kop-kota">JAKARTA</div>
+            <div class="kop-kodepos">Kode Pos : 10110</div>
         </div>
     </div>
 

@@ -13,11 +13,15 @@
 <!-- KOP Surat only visible during Printing -->
 <div class="print-only" style="display: none;">
     <div class="kop-surat">
+        <img class="kop-logo" src="{{ asset('images/jakarta-logo.png') }}" alt="Logo DKI Jakarta">
         <div class="kop-text">
-            <h2>Pemerintah Provinsi DKI Jakarta</h2>
-            <h1>SMK Negeri 2 Jakarta</h1>
-            <p>Bidang Keahlian: Teknologi Informasi, Bisnis dan Manajemen, Pariwisata</p>
-            <p>Jl. Gajah Mada No.139, Jakarta Pusat | Telp: (021) 6341234 | Email: info@smkn2jkt.sch.id</p>
+            <div class="kop-provinsi">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</div>
+            <div class="kop-sekolah">SEKOLAH MENENGAH KEJURUSAN NEGERI 2</div>
+            <div class="kop-detail">Bidang Keahlian : Bisnis, Manajemen dan Teknik Informatika</div>
+            <div class="kop-detail">Jalan Batu No. 3 Gambir, Telp. 3846219, 3520860 Fax 3520860</div>
+            <div class="kop-detail">Website:http://www.smkn2jkt.sch.id Email:humas@smkn2jkt.sch.id</div>
+            <div class="kop-kota">JAKARTA</div>
+            <div class="kop-kodepos">Kode Pos : 10110</div>
         </div>
     </div>
     <div style="text-align: center; margin-bottom: 25px;">
