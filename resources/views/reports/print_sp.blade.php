@@ -11,9 +11,9 @@
             color: #000;
             background: #fff;
             margin: 0;
-            padding: 30px;
+            padding: 15px 30px;
             font-size: 12pt;
-            line-height: 1.6;
+            line-height: 1.45;
         }
         
         .container {
@@ -85,7 +85,7 @@
         /* Document Title */
         .title-sp {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
         }
 
         .title-sp h3 {
@@ -97,7 +97,7 @@
         }
 
         .title-sp p {
-            margin: 5px 0 0 0;
+            margin: 3px 0 0 0;
             font-size: 11pt;
         }
 
@@ -105,19 +105,19 @@
         p.main-paragraph {
             text-indent: 40px;
             text-align: justify;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
         /* Bio Table */
         .bio-table {
-            margin: 20px auto 20px 40px;
+            margin: 10px auto 10px 40px;
             border-collapse: collapse;
             width: 80%;
         }
 
         .bio-table td {
             border: none;
-            padding: 5px 10px;
+            padding: 3px 10px;
             font-size: 12pt;
         }
 
@@ -128,14 +128,14 @@
 
         /* Signatures block */
         .signature-block {
-            margin-top: 40px;
+            margin-top: 20px;
             page-break-inside: avoid;
         }
 
         .signature-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 35px;
+            margin-bottom: 20px;
         }
 
         .signature-col {
@@ -144,7 +144,7 @@
         }
 
         .signature-space {
-            height: 75px;
+            height: 45px;
         }
 
         .btn-print-box {
@@ -276,13 +276,21 @@
             </div>
         </div>
 
-        <div class="signature-row" style="margin-top: 40px;">
+        <div class="signature-row" style="margin-top: 20px;">
             <div class="signature-col">
                 <p>Wali Kelas</p>
                 <div class="signature-space"></div>
                 <p style="text-decoration: underline; font-weight: bold;">
                     ( {{ $student->kelas && $student->kelas->homeroomTeacher ? $student->kelas->homeroomTeacher->name : '........................................' }} )
                 </p>
+            </div>
+
+            <div class="signature-col" style="margin-top: -15px;">
+                <p>Mengetahui,</p>
+                <p style="margin-top: 0; margin-bottom: 0;">Kepala SMK Negeri 2 Jakarta</p>
+                <div class="signature-space"></div>
+                <p style="text-decoration: underline; font-weight: bold; margin-bottom: 0;">Drs. H. M. Husin, M.Pd</p>
+                <p style="font-size: 10pt; margin-top: 2px; margin-bottom: 0;">NIP. 196912051995121002</p>
             </div>
 
             <div class="signature-col">
@@ -292,14 +300,6 @@
                     ( {{ auth()->user()->role === 'guru_bk' ? auth()->user()->name : '........................................' }} )
                 </p>
             </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 50px;">
-            <p>Mengetahui,</p>
-            <p style="margin-bottom: 0;">Kepala SMK Negeri 2 Jakarta</p>
-            <div class="signature-space" style="height: 80px;"></div>
-            <p style="text-decoration: underline; font-weight: bold; margin-bottom: 0;">Drs. H. M. Husin, M.Pd</p>
-            <p style="font-size: 10pt; margin-top: 2px;">NIP. 196912051995121002</p>
         </div>
     </div>
 </div>

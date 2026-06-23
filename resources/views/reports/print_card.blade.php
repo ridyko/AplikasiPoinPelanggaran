@@ -124,12 +124,12 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
         }
 
         th, td {
             border: 1px solid #000;
-            padding: 8px 10px;
+            padding: 6px 10px;
             text-align: left;
             font-size: 9.5pt;
         }
@@ -148,7 +148,7 @@
         .signature-block {
             display: flex;
             justify-content: space-between;
-            margin-top: 50px;
+            margin-top: 20px;
             page-break-inside: avoid;
         }
 
@@ -158,7 +158,7 @@
         }
 
         .signature-space {
-            height: 70px;
+            height: 45px;
         }
 
         .btn-print-box {
