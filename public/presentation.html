@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Presentasi Sistem Poin Pelanggaran SMKN 2 Jakarta">
+    <title>Presentasi Sistem Poin Pelanggaran - SMKN 2 Jakarta</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-page: #f8fafc; /* Very light slate gray/blue */
+            --bg-slide: #ffffff; /* Pure white for clean slides */
+            --bg-card: #f1f5f9; /* Slate 100 for card bg */
+            --border-color: #cbd5e1; /* Slate 300 for crisp borders */
+            --border-light: #e2e8f0; /* Slate 200 for subtle lines */
+            
+            --accent-blue: #2563eb; /* Slate/Royal Blue */
+            --accent-blue-light: #eff6ff; /* Warm light blue */
+            --accent-rose: #dc2626; /* Warning red */
+            --accent-rose-light: #fff1f2; /* Light rose */
+            --accent-amber: #d97706; /* Warning amber */
+            --accent-amber-light: #fef3c7; /* Light amber */
+            --accent-emerald: #16a34a; /* Safe green */
+            --accent-emerald-light: #ecfdf5; /* Light green */
+            --accent-purple: #7c3aed; /* Creative purple */
+            --accent-purple-light: #f5f3ff; /* Light purple */
+            --accent-cyan: #0891b2; /* Technical cyan */
+            --accent-cyan-light: #ecfeff; /* Light cyan */
+            
+            --text-primary: #0f172a; /* Slate 900 */
+            --text-secondary: #334155; /* Slate 700 */
+            --text-muted: #64748b; /* Slate 500 */
+            
+            --font-display: 'Inter', sans-serif;
+            --font-sans: 'Inter', sans-serif;
+            
+            --transition-slide: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Reset & Base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Disable animated background blobs completely */
+        .ambient-bg {
+            display: none;
+        }
+
+        /* Presentation Wrapper */
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        /* Slide Window */
+        .slides-wrapper {
+            position: relative;
+            width: 92%;
+            max-width: 1300px;
+            height: 80vh;
+        }
+
+        /* Slide Shell - Flat and clean light slides */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(30px);
+            transition: opacity 0.4s var(--transition-slide),
+                        visibility 0.4s var(--transition-slide),
+                        transform 0.4s var(--transition-slide);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px 45px;
+            border-radius: 16px;
+            background: var(--bg-slide);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+            overflow-y: auto;
+        }
+
+        /* Active Slide */
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+            z-index: 5;
+        }
+
+        /* Slide Exit States */
+        .slide.prev-exit {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-30px);
+        }
+        
+        .slide.next-exit {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(30px);
+        }
+
+        /* Slide Header */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 15px;
+        }
+
+        .slide-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slide-title-icon {
+            font-size: 1.6rem;
+            color: var(--accent-blue);
+        }
+
+        .slide-title {
+            font-family: var(--font-display);
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .slide-category {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 6px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+        }
+
+        /* Slide Content area */
+        .slide-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            margin-bottom: 20px;
+        }
+
+        /* Columns helper */
+        .col-left {
+            flex: 1.1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .col-right {
+            flex: 0.9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Slide Footer */
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-light);
+            padding-top: 15px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Cover Slide */
+        .cover-slide {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: var(--bg-slide);
+        }
+
+        .cover-logo {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+            background: var(--accent-blue-light);
+            width: 76px;
+            height: 76px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cover-title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.25;
+            letter-spacing: -0.75px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .cover-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 750px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .cover-meta {
+            display: flex;
+            gap: 16px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+
+        .cover-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-page);
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+        }
+
+        .cover-meta i {
+            color: var(--accent-blue);
+        }
+
+        /* Grids & Cards */
+        .feature-grid-2x2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            width: 100%;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 22px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+            background: var(--bg-slide);
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.04);
+        }
+
+        .card-icon {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+
+        .feature-card.cyan .card-icon { color: var(--accent-blue); background: var(--accent-blue-light); }
+        .feature-card.pink .card-icon { color: var(--accent-rose); background: var(--accent-rose-light); }
+        .feature-card.purple .card-icon { color: var(--accent-purple); background: var(--accent-purple-light); }
+        .feature-card.orange .card-icon { color: var(--accent-amber); background: var(--accent-amber-light); }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .card-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Lists */
+        .pres-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .pres-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .pres-list-item:hover {
+            border-color: var(--accent-blue);
+            transform: translateX(4px);
+            background: var(--bg-slide);
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.04);
+        }
+
+        .list-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--accent-blue-light);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: var(--font-display);
+            flex-shrink: 0;
+            font-size: 0.95rem;
+        }
+
+        .pres-list-item.pink .list-num {
+            background: var(--accent-rose-light);
+            border-color: rgba(225, 29, 72, 0.2);
+            color: var(--accent-rose);
+        }
+        .pres-list-item.purple .list-num {
+            background: var(--accent-purple-light);
+            border-color: rgba(124, 58, 237, 0.2);
+            color: var(--accent-purple);
+        }
+
+        .list-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .list-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            font-family: var(--font-display);
+        }
+
+        .list-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Mockup Frame */
+        .mockup-frame {
+            width: 100%;
+            background: var(--bg-page);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 10px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mockup-bar {
+            height: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0 8px;
+            margin-bottom: 8px;
+        }
+
+        .mockup-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+        }
+        
+        .mockup-dot.red { background: #ef4444; }
+        .mockup-dot.yellow { background: #f59e0b; }
+        .mockup-dot.green { background: #10b981; }
+
+        .mockup-screen {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16/10;
+        }
+
+        .mockup-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mockup-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+        }
+
+        .mockup-badge i {
+            color: var(--accent-blue);
+            font-size: 0.9rem;
+        }
+
+        /* Flowchart Nodes */
+        .flow-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .flow-node {
+            width: 22%;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s;
+        }
+
+        .flow-node:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .flow-node.active-node {
+            border-color: var(--accent-rose);
+            background: var(--accent-rose-light);
+        }
+
+        .flow-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--accent-blue-light);
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .flow-node.active-node .flow-icon {
+            background: #ffe4e6;
+            color: var(--accent-rose);
+        }
+
+        .flow-text {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-family: var(--font-display);
+        }
+
+        .flow-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .flow-arrow {
+            color: var(--text-muted);
+            font-size: 1.4rem;
+        }
+
+        /* Role Comparison Matrix */
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .matrix-table th, .matrix-table td {
+            padding: 14px 18px;
+            text-align: left;
+        }
+
+        .matrix-table th {
+            background: var(--bg-card);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .matrix-table tr:not(:last-child) td {
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .matrix-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .matrix-table td i.check-yes {
+            color: var(--accent-emerald);
+            font-size: 1rem;
+        }
+        
+        .matrix-table td i.check-no {
+            color: var(--accent-rose);
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .role-badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .role-badge.sa { background: var(--accent-purple-light); color: var(--accent-purple); border: 1px solid rgba(124, 58, 237, 0.2); }
+        .role-badge.bk { background: var(--accent-blue-light); color: var(--accent-blue); border: 1px solid rgba(37, 99, 235, 0.2); }
+        .role-badge.wk { background: var(--accent-amber-light); color: #b45309; border: 1px solid rgba(217, 119, 6, 0.2); }
+        .role-badge.sw { background: var(--accent-emerald-light); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.2); }
+
+        /* Global Navigation & Controls */
+        .controls-overlay {
+            position: absolute;
+            bottom: 4%;
+            left: 0;
+            right: 0;
+            width: 92%;
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .controls-overlay * {
+            pointer-events: auto;
+        }
+
+        .nav-btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background: var(--accent-blue-light);
+        }
+        
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--accent-blue);
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        .slide-counter {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Slide Index Menu */
+        .index-select-wrapper {
+            position: relative;
+        }
+
+        .index-trigger {
+            padding: 10px 16px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+            transition: all 0.2s;
+        }
+
+        .index-trigger:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background: var(--accent-blue-light);
+        }
+
+        .index-dropdown {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            right: 0;
+            width: 280px;
+            max-height: 350px;
+            overflow-y: auto;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px;
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+            z-index: 101;
+        }
+
+        .index-dropdown.open {
+            display: flex;
+        }
+
+        .index-option {
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .index-option:hover {
+            background: var(--bg-page);
+            color: var(--text-primary);
+        }
+
+        .index-option.active {
+            background: var(--accent-blue-light);
+            color: var(--accent-blue);
+            font-weight: 700;
+        }
+
+        /* Keyboard Legend */
+        .kb-legend {
+            position: absolute;
+            top: 4%;
+            right: 4%;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+        }
+
+        .kb-key {
+            padding: 2px 6px;
+            background: var(--bg-page);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        /* Primary Button */
+        .btn-primary {
+            background: var(--accent-blue);
+            color: #ffffff;
+            border: 1px solid #1d4ed8;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Blobs -->
+    <div class="ambient-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Keyboard Controls Helper -->
+    <div class="kb-legend">
+        <span>Gunakan Tombol</span>
+        <span class="kb-key"><i class="fa-solid fa-arrow-left"></i></span>
+        <span class="kb-key"><i class="fa-solid fa-arrow-right"></i></span>
+        <span>atau</span>
+        <span class="kb-key">Spasi</span>
+    </div>
+
+    <!-- Presentation Container -->
+    <div class="presentation-container">
+        <div class="slides-wrapper">
+
+            <!-- ==========================================
+                 SLIDE 1: COVER
+                 ========================================== -->
+            <div class="slide cover-slide active" data-index="0" data-cat="SMKN 2 Jakarta">
+                <div class="cover-logo">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h1 class="cover-title">Sistem Poin Pelanggaran & Kedisiplinan Siswa</h1>
+                <p class="cover-subtitle">Digitalisasi pencatatan pelanggaran, otomasi pelaporan berkas (SP), dan transparansi monitoring tata tertib terintegrasi langsung dengan WhatsApp Gateway untuk Orang Tua.</p>
+                <div class="cover-meta">
+                    <span><i class="fa-solid fa-code"></i> Next.js / Laravel MVC</span>
+                    <span><i class="fa-brands fa-whatsapp"></i> WA Gateway</span>
+                    <span><i class="fa-solid fa-building-columns"></i> SMKN 2 Jakarta</span>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SLIDE 2: THE CHALLENGE
+                 ========================================== -->
+            <div class="slide" data-index="1" data-cat="Latar Belakang">
+                <div class="slide-header">
+                    <div class="slide-title-group">
+                        <i class="fa-solid fa-triangle-exclamation slide-title-icon"></i>
+                        <h2 class="slide-title">Tantangan & Masalah Lapangan</h2>
+                    </div>
+                    <span class="slide-category">The Challenge</span>
+                </div>
+                
+                <div class="slide-body">
+                    <div class="col-left" style="flex: 2;">
+                        <div class="feature-grid-2x2">
+                            <div class="feature-card pink">
+                                <div class="card-icon"><i class="fa-solid fa-trash-can"></i></div>
+                                <h3 class="card-title">Kerentanan Manual</h3>
+                                <p class="card-desc">Pencatatan pelanggaran fisik di buku BK rentan terselip, rusak, atau dimodifikasi oleh oknum yang tidak berwenang.</p>
+                            </div>
+                            <div class="feature-card orange">
+                                <div class="card-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+                                <h3 class="card-title">Keterlambatan Info Ortu</h3>
+                                <p class="card-desc">Orang tua seringkali baru mengetahui tindakan indisipliner anak setelah berminggu-minggu, mengurangi efek pembinaan preventif.</p>
+                            </div>
+                            <div class="feature-card purple">
+                                <div class="card-icon"><i class="fa-solid fa-eye-slash"></i></div>
+                                <h3 class="card-title">Blind Spot Wali Kelas</h3>
+                                <p class="card-desc">Wali Kelas tidak memiliki akses instan ke track record poin kedisiplinan siswanya sendiri tanpa bertanya ke staff BK.</p>
+                            </div>
+                            <div class="feature-card cyan">
+                                <div class="card-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                                <h3 class="card-title">In-efisiensi Surat SP</h3>
+                                <p class="card-desc">Pembuatan draf surat panggilan dan Surat Peringatan (SP 1, SP 2, SP 3) dilakukan manual berulang kali, menyita waktu.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-footer">
+                    <span>Masalah Pencatatan Manual Kedisiplinan Sekolah</span>
+                    <span>Halaman 2 dari 11</span>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SLIDE 3: THE SOLUTION
+                 ========================================== -->
+            <div class="slide" data-index="2" data-cat="Solusi Sistem">
+                <div class="slide-header">
+                    <div class="slide-title-group">
+                        <i class="fa-solid fa-lightbulb slide-title-icon" style="color: var(--accent-orange);"></i>
+                        <h2 class="slide-title">Solusi Sistem Terintegrasi</h2>
+                    </div>
+                    <span class="slide-category">The Solution</span>
+                </div>
+                
+                <div class="slide-body">
+                    <div class="col-left">
+                        <ul class="pres-list">
+                            <li class="pres-list-item">
+                                <div class="list-num">1</div>
+                                <div class="list-content">
+                                    <h4 class="list-title">Digitalisasi Total Catatan BK</h4>
+                                    <p class="list-desc">Database pelanggaran dan sanksi poin terpusat dan terenkripsi. Histori tidak dapat didelete sembarangan.</p>
+                                </div>
+                            </li>
+                            <li class="pres-list-item pink">
+                                <div class="list-num">2</div>
+                                <div class="list-content">
+                                    <h4 class="list-title">WhatsApp Gateway Real-Time</h4>
+                                    <p class="list-desc">Begitu pelanggaran diinput, sistem mengirim notifikasi otomatis berisi detail jenis pelanggaran & akumulasi poin ke WA orang tua.</p>
+                                </div>
+                            </li>
+                            <li class="pres-list-item purple">
+                                <div class="list-num">3</div>
+                                <div class="list-content">
+                                    <h4 class="list-title">Otomasi Surat Peringatan (SP)</h4>
+                                    <p class="list-desc">Template SP1, SP2, dan SP3 terisi data siswa secara otomatis dan siap dicetak/print dalam format resmi instan.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-right">
+                        <div class="mockup-frame">
+                            <div class="mockup-bar">
+                                <div class="mockup-dot red"></div>
+                                <div class="mockup-dot yellow"></div>
+                                <div class="mockup-dot green"></div>
+                            </div>
+                            <div class="mockup-screen">
+                                <img src="images/presentation/mobile.png" class="mockup-image" alt="Mobile UI View">
+                                <div class="mockup-badge">
+                                    <i class="fa-solid fa-mobile-screen"></i>
+                                    <span>Tampilan Mobile Responsif</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-footer">
+                    <span>Sistem Kedisiplinan Digital Terintegrasi</span>
+                    <span>Halaman 3 dari 11</span>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SLIDE 4: ARCHITECTURE & STACK
+                 ========================================== -->
+            <div class="slide" data-index="3" data-cat="Arsitektur">
+                <div class="slide-header">
+                    <div class="slide-title-group">
+                        <i class="fa-solid fa-cubes slide-title-icon" style="color: var(--accent-purple);"></i>
+                        <h2 class="slide-title">Arsitektur & Stack Teknologi</h2>
+                    </div>
+                    <span class="slide-category">Tech Stack</span>
+                </div>
+                
+                <div class="slide-body">
+                    <div class="col-left" style="flex: 2;">
+                        <div class="feature-grid-2x2">
+                            <div class="feature-card cyan">
+                                <div class="card-icon"><i class="fa-brands fa-laravel"></i></div>
+                                <h3 class="card-title">Laravel MVC Engine</h3>
+                                <p class="card-desc">Menggunakan Laravel 10 sebagai inti backend yang handal, mengatur perizinan, routing, database ORM Eloquent, dan templating Blade.</p>
+                            </div>
+                            <div class="feature-card pink">
+                                <div class="card-icon"><i class="fa-brands fa-node-js"></i></div>
+                                <h3 class="card-title">Node.js WA Service</h3>
+                                <p class="card-desc">Microservice Node.js berbasis Baileys library yang menangani session client WhatsApp lokal, scan QR Code, dan daemon pengiriman pesan.</p>
+                            </div>
+                            <div class="feature-card purple">
+                                <div class="card-icon"><i class="fa-solid fa-server"></i></div>
+                                <h3 class="card-title">MySQL Relational DB</h3>
+                                <p class="card-desc">Mengelola integritas data siswa, kelas, master pelanggaran, riwayat catatan pelanggaran (`violation_logs`), serta antrean pesan (`wa_queues`).</p>
+                            </div>
+                            <div class="feature-card orange">
+                                <div class="card-icon"><i class="fa-solid fa-paint-brush"></i></div>
+                                <h3 class="card-title">Glassmorphism UI</h3>
+                                <p class="card-desc">Dibuat menggunakan CSS modern bertema Glassmorphic premium (transparansi, backdrop-filter blur, transisi mulus, dan visualisasi Chart.js).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-footer">
+                    <span>Arsitektur Gabungan Laravel & Node.js</span>
+                    <span>Halaman 4 dari 11</span>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SLIDE 5: WHATSAPP FLOW
+                 ========================================== -->
+            <div class="slide" data-index="4" data-cat="Alur Kerja">
+                <div class="slide-header">
+                    <div class="slide-title-group">
+                        <i class="fa-brands fa-whatsapp slide-title-icon" style="color: var(--accent-green);"></i>
+                        <h2 class="slide-title">Alur Pengiriman Notifikasi WhatsApp</h2>
+                    </div>
+                    <span class="slide-category">Work Flow</span>
+                </div>
+                
+                <div class="slide-body" style="flex-direction: column; justify-content: center; gap: 20px;">
+                    <p style="color: var(--text-secondary); text-align: center; max-width: 800px; margin-bottom: 20px; font-size: 1.05rem;">
+                        Pengiriman notifikasi dirancang asinkron menggunakan sistem antrean (**Queue-based**) untuk mencegah delay pemuatan saat input data dan memastikan pesan tidak hilang jika koneksi terputus sementara.
+                    </p>
+                    
+                    <div class="flow-container">
+                        <div class="flow-node">
+                            <div class="flow-icon"><i class="fa-solid fa-keyboard"></i></div>
+                            <span class="flow-text">1. Catat Kasus</span>
+                            <p class="flow-desc">Guru BK menginput pelanggaran siswa di halaman web.</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        
+                        <div class="flow-node active-node">
+                            <div class="flow-icon"><i class="fa-solid fa-database"></i></div>
+                            <span class="flow-text">2. Queue Table</span>
+                            <p class="flow-desc">Pesan diformat & dimasukkan ke tabel `wa_queues` di DB.</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        
+                        <div class="flow-node">
+                            <div class="flow-icon"><i class="fa-solid fa-gears"></i></div>
+                            <span class="flow-text">3. Daemon Reader</span>
+                            <p class="flow-desc">Node.js server memantau database & memproses pesan antrean.</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        
+                        <div class="flow-node">
+                            <div class="flow-icon"><i class="fa-solid fa-paper-plane"></i></div>
+                            <span class="flow-text">4. Terkirim</span>
+                            <p class="flow-desc">WhatsApp sampai di HP orang tua & status berubah jadi 'sent'.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-footer">
+                    <span>Sistem Pengiriman Notifikasi Asinkron</span>
+                    <span>Halaman 5 dari 11</span>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SLIDE 6: DASHBOARD VIEW
+                 ========================================== -->
+            <div class="slide" data-index="5" data-cat="Dashboard">
+                <div class="slide-header">
+                    <div class="slide-title-group">
+                        <i class="fa-solid fa-gauge-high slide-title-icon"></i>
+                        <h2 class="slide-title">Visualisasi Dashboard & Monitoring</h2>
+                    </div>
+                    <span class="slide-category">Dashboard UI</span>
+                </div>
+                
+                <div class="slide-body">
+                    <div class="col-left" style="flex: 0.85;">
+                        <ul class="pres-list">
+                            <li class="pres-list-item">
+                                <div class="list-num"><i class="fa-solid fa-chart-line"></i></div>
+                                <div class="list-content">
+                                    <h4 class="list-title">Grafik Tren Bulanan</h4>
+                                    <p class="list-desc">Menampilkan naik-turunnya grafik akumulasi kasus per bulan untuk mendeteksi fluktuasi kedisiplinan.</p>
+                                </div>
+                            </li>
+                            <li class="pres-list-item pink">
+                                <div class="list-num"><i class="fa-solid fa-chart-pie"></i></div>
+                                <div class="list-content">
+                                    <h4 class="list-title">Rasio Kategori Pelanggaran</h4>
+                                    <p class="list-desc">Doughnut chart memperlihatkan proporsi pelanggaran Ringan, Sedang, dan Berat secara real-time.</p>
+                                </div>
+                            </li>
+                            <li class="pres-list-item purple">
+                                <div class="list-num"><i class="fa-solid fa-users"></i></div>
+                                <div class="list-content">
+                                    <h4 class="list-title">Dashboard Wali Kelas — Tabel Siswa Kelas</h4>
+                                    <p class="list-desc">Wali Kelas melihat daftar lengkap siswa di kelasnya dengan indikator poin, progress bar risiko (<span style="color:#10b981;">Aman</span> / <span style="color:#f59e0b;">Perhatian</span> / <span style="color:#ef4444;">Kritis</span>), dan tombol catat pelanggaran langsung.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-right" style="flex: 1.15;">
+                        <div class="mockup-frame">
+                            <div class="mockup-bar">
+                                <div class="mockup-dot red"></div>
+                                <div class="mockup-dot yellow"></div>
+                                <div class="mockup-dot green"></div>
+                            </div>
+                            <div class="mockup-screen" style="aspect-ratio: 16/9.5; background: #ffffff; display: flex; flex-direction: column; gap: 0; overflow: hidden; border: 1px solid var(--border-light);">
+                                <!-- Simulated dashboard header -->
+                                <div style="background: var(--bg-card); border-bottom: 1px solid var(--border-light); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-primary);">Dashboard — Wali Kelas</span>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">X RPL 1 · 32 Siswa</span>
+                                </div>
+                                <!-- Metric cards row -->
+                                <div style="display: flex; gap: 8px; padding: 10px 16px;">
+                                    <div style="flex:1; background: var(--accent-blue-light); border: 1px solid rgba(37, 99, 235, 0.2); border-radius: 8px; padding: 8px; text-align: center;">
+                                        <div style="font-size: 1.3rem; font-weight: 800; color: var(--accent-blue);">32</div>
+                                        <div style="font-size: 0.65rem; color: var(--text-secondary);">Siswa Kelas</div>
+                                    </div>
+                                    <div style="flex:1; background: var(--accent-amber-light); border: 1px solid rgba(217, 119, 6, 0.2); border-radius: 8px; padding: 8px; text-align: center;">
+                                        <div style="font-size: 1.3rem; font-weight: 800; color: #b45309;">3</div>
+                                        <div style="font-size: 0.65rem; color: #92400e;">Kritis</div>
+                                    </div>
+                                    <div style="flex:1; background: var(--accent-rose-light); border: 1px solid rgba(220, 38, 38, 0.2); border-radius: 8px; padding: 8px; text-align: center;">
+                                        <div style="font-size: 1.3rem; font-weight: 800; color: var(--accent-rose);">2</div>
+                                        <div style="font-size: 0.65rem; color: #9d174d;">Kasus Hari Ini</div>
+                                    </div>
+                                </div>
+                                <!-- Student table preview -->
+                                <div style="margin: 0 16px 10px; border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; font-size: 0.7rem; background: #ffffff;">
+                                    <div style="background: var(--bg-card); padding: 6px 12px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4px; font-weight: 700; color: var(--text-secondary); border-bottom: 1px solid var(--border-light);">
+                                        <span>Nama Siswa</span><span>Poin</span><span style="text-align:center;">Aksi</span>
+                                    </div>
+                                    <div style="padding: 5px 12px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4px; align-items: center; border-bottom: 1px solid var(--border-light);">
+                                        <span style="display:flex;align-items:center;gap:6px; color: var(--text-primary);"><span style="width:6px;height:6px;background:#ef4444;border-radius:50%;"></span>Budi Santoso</span>
+                                        <span style="color:#ef4444;font-weight:700;">75</span>
+                                        <span style="text-align:center;"><span style="background:var(--accent-purple-light);color:var(--accent-purple);border:1px solid rgba(124, 58, 237, 0.2);padding:2px 6px;border-radius:4px;font-size:0.65rem;font-weight:600;">+ Catat</span></span>
+                                    </div>
+                                    <div style="padding: 5px 12px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4px; align-items: center; border-bottom: 1px solid var(--border-light); background: #fffdf5;">
+                                        <span style="display:flex;align-items:center;gap:6px; color: var(--text-primary);"><span style="width:6px;height:6px;background:#f59e0b;border-radius:50%;"></span>Dewi Rahayu</span>
+                                        <span style="color:#f59e0b;font-weight:700;">35</span>
+                                        <span style="text-align:center;"><span style="background:var(--accent-purple-light);color:var(--accent-purple);border:1px solid rgba(124, 58, 237, 0.2);padding:2px 6px;border-radius:4px;font-size:0.65rem;font-weight:600;">+ Catat</span></span>
+                                    </div>
+                                    <div style="padding: 5px 12px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4px; align-items: center;">
+                                        <span style="display:flex;align-items:center;gap:6px; color: var(--text-primary);"><span style="width:6px;height:6px;background:#10b981;border-radius:50%;"></span>Ahmad Fauzi</span>
+                                        <span style="color:#10b981;font-weight:700;">5</span>
+                                        <span style="text-align:center;"><span style="background:var(--accent-purple-light);color:var(--accent-purple);border:1px solid rgba(124, 58, 237, 0.2);padding:2px 6px;border-radius:4px;font-size:0.65rem;font-weight:600;">+ Catat</span></span>
+                                    </div>
+                                </div>
+                                <div class="mockup-badge" style="bottom: 10px; right: 10px;">
+                                    <i class="fa-solid fa-chalkboard-user" style="color:var(--accent-amber);"></i>
+                                    <span>Dashboard Wali Kelas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-footer">
+                    <span>Tampilan Monitoring Dashboard Real-Time</span>
+                    <span>Halaman 6 dari 11</span>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SLIDE 7: PRINT & RECAP REPORTS
+                 ========================================== -->
+            <div class="slide" data-index="6" data-cat="Laporan">
+                <div class="slide-header">
+                    <div class="slide-title-group">
+                        <i class="fa-solid fa-print slide-title-icon" style="color: var(--accent-pink);"></i>
+                        <h2 class="slide-title">Laporan Rekap & Dokumen Surat SP</h2>
+                    </div>
+                    <span class="slide-category">Print & Export</span>
+                </div>
+                
+                <div class="slide-body">
+                    <div class="col-left">
+                        <ul class="pres-list">
+                            <li class="pres-list-item">
+                                <div class="list-num"><i class="fa-solid fa-filter"></i></div>
+                                <div class="list-content">
+                                    <h4 class="list-title">Pencarian & Filter Rekap</h4>
+                                    <p class="list-desc">Memfilter laporan berdasarkan Kelas, Rentang Tanggal Pelanggaran, dan input pencarian teks secara instan di layar.</p>
+                                </div>
+                            </li>
+                            <li class="pres-list-item pink">
+                                <div class="list-num"><i class="fa-solid fa-file-excel"></i></div>
+                                <div class="list-content">
+                                    <h4 class="list-title">Export Excel Berformat</h4>
+                                    <p class="list-desc">Mengekspor data filter ke file spreadsheet (.xlsx) lengkap dengan format font dinas formal, lebar kolom otomatis, dan struktur rapi.</p>
+                                </div>
+                            </li>
+                            <li class="pres-list-item purple">
+                                <div class="list-num"><i class="fa-solid fa-envelope-open-text"></i></div>
+                                <div class="list-content">
+                                    <h4 class="list-title">Otomasi Surat Peringatan (SP)</h4>
+                                    <p class="list-desc">Surat SP 1 (&ge;25 pts), SP 2 (&ge;50 pts), dan SP 3/DO (&ge;75/100 pts) terisi data dinamis siswa dengan layout cetak printer A4 profesional.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-right">
+                        <div class="mockup-frame">
+                            <div class="mockup-bar">
+                                <div class="mockup-dot red"></div>
+                                <div class="mockup-dot yellow"></div>
+                                <div class="mockup-dot green"></div>
+                            </div>
+                            <div class="mockup-screen">
+                                <img src="images/presentation/student_details.png" class="mockup-image" alt="Student Detail Screenshot">
+                                <div class="mockup-badge">
+                                    <i class="fa-solid fa-user-check"></i>
+                                    <span>Detail Riwayat & Pencetakan Kartu Poin</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-footer">
+                    <span>Format Cetak & Laporan Excel Otomatis</span>
+                    <span>Halaman 7 dari 11</span>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SLIDE 8: ACCESS CONTROL (RBAC)
+                 ========================================== -->
+            <div class="slide" data-index="7" data-cat="Keamanan">
+                <div class="slide-header">
+                    <div class="slide-title-group">
+                        <i class="fa-solid fa-key slide-title-icon" style="color: var(--accent-purple);"></i>
+                        <h2 class="slide-title">Hak Akses Berjenjang (RBAC) &mdash; 5 Role</h2>
+                    </div>
+                    <span class="slide-category">Access Control</span>
+                </div>
+                
+                <div class="slide-body" style="align-items: center; justify-content: center; overflow-x: auto;">
+                    <table class="matrix-table" style="min-width: 700px; font-size: 0.82rem;">
+                        <thead>
+                            <tr>
+                                <th style="min-width:170px;">Fitur / Aksi</th>
+                                <th><span class="role-badge sa">Super Admin</span></th>
+                                <th><span class="role-badge bk">Guru BK</span></th>
+                                <th><span class="role-badge" style="background:var(--accent-rose-light);color:var(--accent-rose);border:1px solid rgba(220, 38, 38, 0.2);">Wakil Kesiswaan</span></th>
+                                <th><span class="role-badge wk">Wali Kelas</span></th>
+                                <th><span class="role-badge" style="background:var(--accent-amber-light);color:#b45309;border:1px solid rgba(217, 119, 6, 0.2);">Guru</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Kelola Jenis Pelanggaran &amp; User</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Ya</td>
+                                <td><i class="fa-solid fa-circle-xmark check-no"></i> Tidak</td>
+                                <td><i class="fa-solid fa-circle-xmark check-no"></i> Tidak</td>
+                                <td><i class="fa-solid fa-circle-xmark check-no"></i> Tidak</td>
+                                <td><i class="fa-solid fa-circle-xmark check-no"></i> Tidak</td>
+                            </tr>
+                            <tr style="background: rgba(22,163,74,0.05);">
+                                <td>Catat Pelanggaran Siswa</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Semua</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Semua</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Semua</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Semua Siswa</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Semua Siswa</td>
+                            </tr>
+                            <tr style="background: rgba(22,163,74,0.05);">
+                                <td>Lihat Detail &amp; Daftar Siswa</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Semua</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Semua</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Semua</td>
+                                <td><i class="fa-solid fa-circle-check check-yes" style="color:#d97706;"></i> <span style="color:#b45309; font-weight: 600;">Kelas Sendiri</span></td>
+                                <td><i class="fa-solid fa-circle-xmark check-no"></i> Tidak</td>
+                            </tr>
+                            <tr>
+                                <td>Import Excel &amp; Edit Data Siswa</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Ya</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Ya</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Ya</td>
+                                <td><i class="fa-solid fa-circle-xmark check-no"></i> Tidak</td>
+                                <td><i class="fa-solid fa-circle-xmark check-no"></i> Tidak</td>
+                            </tr>
+                            <tr>
+                                <td>Unduh Rekap Laporan &amp; Cetak SP</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Ya</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Ya</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Ya</td>
+                                <td><i class="fa-solid fa-circle-check check-yes" style="color:#d97706;"></i> <span style="color:#b45309; font-weight: 600;">Kelas Sendiri</span></td>
+                                <td><i class="fa-solid fa-circle-xmark check-no"></i> Tidak</td>
+                            </tr>
+                            <tr>
+                                <td>Cek Poin Mandiri (Tanpa Login)</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Ya</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Ya</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Ya</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Ya</td>
+                                <td><i class="fa-solid fa-circle-check check-yes"></i> Ya (via NISN)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="slide-footer">
+                    <span>5 Role Akses &mdash; <span style="color:#d97706;">&#11044;</span> = terbatas hanya pada scope tertentu</span>
+                    <span>Halaman 8 dari 11</span>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SLIDE 9 (NEW): USER MANAGEMENT & WALI KELAS MAPPING
+                 ========================================== -->
+            <div class="slide" data-index="8" data-cat="Manajemen User">
+                <div class="slide-header">
+                    <div class="slide-title-group">
+                        <i class="fa-solid fa-users-gear slide-title-icon" style="color: var(--accent-cyan);"></i>
+                        <h2 class="slide-title">Manajemen User & Pemetaan Wali Kelas</h2>
+                    </div>
+                    <span class="slide-category">User Management</span>
+                </div>
+
+                <div class="slide-body" style="gap: 30px;">
+                    <div class="col-left" style="flex: 1;">
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 14px; line-height: 1.6;">
+                            Hanya <strong style="color: var(--accent-purple);">Super Admin</strong> yang dapat mengelola akun staff. Sistem mendukung <strong>5 role akses</strong> yang berbeda sesuai tanggung jawab masing-masing.
+                        </p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div class="feature-card" style="background: var(--accent-purple-light); border: 1px solid rgba(124, 58, 237, 0.2); padding: 12px; border-radius: 10px;">
+                                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><i class="fa-solid fa-crown" style="color:var(--accent-purple);"></i><span style="font-weight:700;font-size:0.9rem;color:var(--text-primary);">Super Admin</span></div>
+                                <p style="font-size:0.78rem;color:var(--text-secondary);">Akses penuh, kelola user &amp; sistem</p>
+                            </div>
+                            <div class="feature-card" style="background: var(--accent-blue-light); border: 1px solid rgba(37, 99, 235, 0.2); padding: 12px; border-radius: 10px;">
+                                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><i class="fa-solid fa-user-shield" style="color:var(--accent-blue);"></i><span style="font-weight:700;font-size:0.9rem;color:var(--text-primary);">Guru BK</span></div>
+                                <p style="font-size:0.78rem;color:var(--text-secondary);">Catat pelanggaran, laporan, cetak SP</p>
+                            </div>
+                            <div class="feature-card" style="background: var(--accent-rose-light); border: 1px solid rgba(220, 38, 38, 0.2); padding: 12px; border-radius: 10px;">
+                                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><i class="fa-solid fa-briefcase" style="color:var(--accent-rose);"></i><span style="font-weight:700;font-size:0.9rem;color:var(--text-primary);">Wakil Kesiswaan</span></div>
+                                <p style="font-size:0.78rem;color:var(--text-secondary);">Sama seperti Guru BK — rekap &amp; laporan</p>
+                            </div>
+                            <div class="feature-card" style="background: #f0fdf4; border: 1px solid #dcfce7; padding: 12px; border-radius: 10px;">
+                                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><i class="fa-solid fa-chalkboard-user" style="color:#16a34a;"></i><span style="font-weight:700;font-size:0.9rem;color:var(--text-primary);">Wali Kelas</span></div>
+                                <p style="font-size:0.78rem;color:var(--text-secondary);">Pantau kelas sendiri &amp; Catat pelanggaran lintas kelas</p>
+                            </div>
+                            <div class="feature-card" style="background: var(--accent-amber-light); border: 1px solid rgba(217, 119, 6, 0.2); padding: 12px; border-radius: 10px; grid-column: 1/-1;">
+                                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;"><i class="fa-solid fa-chalkboard" style="color:#d97706;"></i><span style="font-weight:700;font-size:0.9rem;color:var(--text-primary);">Guru</span></div>
+                                <p style="font-size:0.78rem;color:var(--text-secondary);">Catat pelanggaran semua siswa — dashboard standar tanpa akses laporan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-right" style="flex: 0.9;">
+                        <div class="mockup-frame">
+                            <div class="mockup-bar">
+                                <div class="mockup-dot red"></div>
+                                <div class="mockup-dot yellow"></div>
+                                <div class="mockup-dot green"></div>
+                            </div>
+                            <div class="mockup-screen" style="aspect-ratio: 4/5; background: #ffffff; display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border-light);">
+                                <div style="background: var(--accent-purple-light); border-bottom: 1px solid var(--border-light); padding: 8px 14px; font-size: 0.75rem; font-weight: 700; color: var(--accent-purple);">Manajemen User &mdash; 5 Role Tersedia</div>
+                                <!-- Stat cards row -->
+                                <div style="display: flex; gap: 6px; padding: 8px 10px; flex-wrap: wrap;">
+                                    <div style="flex:1; min-width:55px; background: var(--accent-purple-light); border-radius: 6px; padding: 5px; text-align:center;">
+                                        <div style="font-weight:800; color:var(--accent-purple); font-size:1rem;">1</div>
+                                        <div style="font-size:0.55rem; color:#6b21a8;">S.Admin</div>
+                                    </div>
+                                    <div style="flex:1; min-width:55px; background: var(--accent-blue-light); border-radius: 6px; padding: 5px; text-align:center;">
+                                        <div style="font-weight:800; color:var(--accent-blue); font-size:1rem;">2</div>
+                                        <div style="font-size:0.55rem; color:#1e40af;">Guru BK</div>
+                                    </div>
+                                    <div style="flex:1; min-width:55px; background: var(--accent-rose-light); border-radius: 6px; padding: 5px; text-align:center;">
+                                        <div style="font-weight:800; color:var(--accent-rose); font-size:1rem;">1</div>
+                                        <div style="font-size:0.55rem; color:#9d174d;">W.Kesiswaan</div>
+                                    </div>
+                                    <div style="flex:1; min-width:55px; background: #f0fdf4; border-radius: 6px; padding: 5px; text-align:center;">
+                                        <div style="font-weight:800; color:#16a34a; font-size:1rem;">8</div>
+                                        <div style="font-size:0.55rem; color:#15803d;">Wali Kelas</div>
+                                    </div>
+                                    <div style="flex:1; min-width:55px; background: var(--accent-amber-light); border-radius: 6px; padding: 5px; text-align:center;">
+                                        <div style="font-weight:800; color:#d97706; font-size:1rem;">25</div>
+                                        <div style="font-size:0.55rem; color:#b45309;">Guru</div>
+                                    </div>
+                                </div>
+                                <!-- User table -->
+                                <div style="margin: 0 14px 8px; border: 1px solid var(--border-light); border-radius: 6px; overflow: hidden; font-size: 0.68rem; background: #ffffff;">
+                                    <div style="background: var(--bg-card); padding: 5px 10px; font-weight:700; color:var(--text-secondary); border-bottom: 1px solid var(--border-light);">Daftar Pengguna</div>
+                                    <div style="padding: 5px 10px; border-bottom: 1px solid var(--border-light); display:flex; align-items:center; gap:8px;">
+                                        <span style="width:24px;height:24px;border-radius:50%;background:var(--accent-purple-light);display:inline-flex;align-items:center;justify-content:center;"><i class="fa-solid fa-crown" style="color:var(--accent-purple);font-size:0.6rem;"></i></span>
+                                        <span style="flex:1; font-weight:600; color:var(--text-primary);">Super Admin</span>
+                                        <span style="background:var(--accent-purple-light);color:var(--accent-purple);padding:2px 6px;border-radius:4px;">Admin</span>
+                                    </div>
+                                    <div style="padding: 5px 10px; border-bottom: 1px solid var(--border-light); display:flex; align-items:center; gap:8px;">
+                                        <span style="width:24px;height:24px;border-radius:50%;background:var(--accent-amber-light);display:inline-flex;align-items:center;justify-content:center;"><i class="fa-solid fa-chalkboard-user" style="color:#d97706;font-size:0.6rem;"></i></span>
+                                        <span style="flex:1; font-weight:600; color:var(--text-primary);">Ibu Sari, S.Pd.</span>
+                                        <span style="background:var(--accent-amber-light);color:#b45309;padding:2px 6px;border-radius:4px;">Wali — X RPL 1</span>
+                                    </div>
+                                    <div style="padding: 5px 10px; display:flex; align-items:center; gap:8px;">
+                                        <span style="width:24px;height:24px;border-radius:50%;background:var(--accent-amber-light);display:inline-flex;align-items:center;justify-content:center;"><i class="fa-solid fa-chalkboard-user" style="color:#d97706;font-size:0.6rem;"></i></span>
+                                        <span style="flex:1; font-weight:600; color:var(--text-primary);">Pak Rudi, S.T.</span>
+                                        <span style="color:#ea580c;font-style:italic;font-size:0.62rem;font-weight:600;"><i class="fa-solid fa-triangle-exclamation"></i> Belum dipetakan</span>
+                                    </div>
+                                </div>
+                                <div class="mockup-badge" style="bottom:10px;right:10px;">
+                                    <i class="fa-solid fa-users-gear" style="color:var(--accent-purple);"></i>
+                                    <span>Kelola User</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-footer">
+                    <span>Manajemen Akun Staff & Pemetaan Dinamis Wali Kelas per Tahun Ajaran</span>
+                    <span>Halaman 9 dari 11</span>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SLIDE 10 (NEW): GURU & WAKIL KESISWAAN
+                 ========================================== -->
+            <div class="slide" data-index="9" data-cat="Role Baru">
+                <div class="slide-header">
+                    <div class="slide-title-group">
+                        <i class="fa-solid fa-star slide-title-icon" style="color: var(--accent-orange);"></i>
+                        <h2 class="slide-title">Role Baru: Guru &amp; Wakil Kesiswaan</h2>
+                    </div>
+                    <span class="slide-category">New Roles</span>
+                </div>
+
+                <div class="slide-body" style="gap: 40px; align-items: stretch;">
+                    <!-- Guru Card -->
+                    <div style="flex: 1; background: var(--accent-amber-light); border: 1px solid rgba(217, 119, 6, 0.2); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 16px;">
+                        <div style="display: flex; align-items: center; gap: 14px;">
+                            <div style="width: 52px; height: 52px; background: rgba(217, 119, 6, 0.1); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #d97706; flex-shrink: 0;">
+                                <i class="fa-solid fa-chalkboard"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 1.3rem; font-weight: 800; color: #b45309; margin: 0;">Guru</h3>
+                                <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0;">Role untuk semua guru mata pelajaran</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa-solid fa-circle-check" style="color: #d97706; margin-top: 2px;"></i>
+                                <span style="font-size: 0.88rem; color: var(--text-primary);">Catat pelanggaran <strong>semua siswa</strong> tanpa batasan kelas</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa-solid fa-circle-check" style="color: #d97706; margin-top: 2px;"></i>
+                                <span style="font-size: 0.88rem; color: var(--text-primary);">Dashboard standar dengan statistik pelanggaran &amp; grafik tren</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa-solid fa-circle-check" style="color: #d97706; margin-top: 2px;"></i>
+                                <span style="font-size: 0.88rem; color: var(--text-primary);">Tombol <strong>"Catat Pelanggaran"</strong> menonjol di header dashboard</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa-solid fa-circle-xmark" style="color: #dc2626; margin-top: 2px;"></i>
+                                <span style="font-size: 0.88rem; color: var(--text-secondary);">Tidak akses laporan rekap, detail siswa, atau cetak SP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wakil Kesiswaan Card -->
+                    <div style="flex: 1; background: var(--accent-rose-light); border: 1px solid rgba(220, 38, 38, 0.2); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 16px;">
+                        <div style="display: flex; align-items: center; gap: 14px;">
+                            <div style="width: 52px; height: 52px; background: rgba(220, 38, 38, 0.1); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent-rose); flex-shrink: 0;">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 1.3rem; font-weight: 800; color: #9d174d; margin: 0;">Wakil Kesiswaan</h3>
+                                <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0;">Setara Guru BK &mdash; akses penuh kesiswaan</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa-solid fa-circle-check" style="color: var(--accent-rose); margin-top: 2px;"></i>
+                                <span style="font-size: 0.88rem; color: var(--text-primary);">Catat pelanggaran <strong>semua siswa</strong> di seluruh kelas</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa-solid fa-circle-check" style="color: var(--accent-rose); margin-top: 2px;"></i>
+                                <span style="font-size: 0.88rem; color: var(--text-primary);">Akses <strong>Data Siswa</strong>, laporan rekap, dan cetak SP</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa-solid fa-circle-check" style="color: var(--accent-rose); margin-top: 2px;"></i>
+                                <span style="font-size: 0.88rem; color: var(--text-primary);">Export Excel rekap pelanggaran seluruh sekolah</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i class="fa-solid fa-circle-xmark" style="color: #dc2626; margin-top: 2px;"></i>
+                                <span style="font-size: 0.88rem; color: var(--text-secondary);">Tidak dapat mengelola user atau jenis pelanggaran (hanya Super Admin)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-footer">
+                    <span>Penambahan 2 Role Baru memperluas kolaborasi antar staf sekolah</span>
+                    <span>Halaman 10 dari 11</span>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SLIDE 11: RECENT UPDATES
+                 ========================================== -->
+            <div class="slide" data-index="10" data-cat="Pembaruan">
+                <div class="slide-header">
+                    <div class="slide-title-group">
+                        <i class="fa-solid fa-wand-magic-sparkles slide-title-icon" style="color: var(--accent-cyan);"></i>
+                        <h2 class="slide-title">Pembaruan Sistem Terbaru</h2>
+                    </div>
+                    <span class="slide-category">Recent Updates</span>
+                </div>
+                
+                <div class="slide-body" style="gap: 40px;">
+                    <div class="col-left" style="flex: 1.15;">
+                        <ul class="pres-list">
+                            <li class="pres-list-item">
+                                <div class="list-num"><i class="fa-solid fa-school"></i></div>
+                                <div class="list-content">
+                                    <h4 class="list-title">CRUD Manajemen Kelas</h4>
+                                    <p class="list-desc">Super Admin kini dapat mengelola kelas (tambah, edit, hapus), memetakan jurusan, dan wali kelas melalui modal glassmorphic interaktif.</p>
+                                </div>
+                            </li>
+                            <li class="pres-list-item pink">
+                                <div class="list-num"><i class="fa-solid fa-users-line"></i></div>
+                                <div class="list-content">
+                                    <h4 class="list-title">Pencatatan Lintas Kelas Wali Kelas</h4>
+                                    <p class="list-desc">Wali Kelas kini dapat mencari dan mencatat pelanggaran untuk siswa dari kelas lain (bukan hanya kelas bimbingannya saja) untuk kolaborasi pengawasan kedisiplinan yang lebih baik.</p>
+                                </div>
+                            </li>
+                            <li class="pres-list-item purple">
+                                <div class="list-num"><i class="fa-solid fa-vial"></i></div>
+                                <div class="list-content">
+                                    <h4 class="list-title">Robust Quality Assurance</h4>
+                                    <p class="list-desc">Dilengkapi automated feature tests (KelasTest &amp; ViolationLogTest) untuk menjamin alur CRUD kelas dan pembatasan lintas kelas berjalan sempurna.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-right" style="flex: 0.85;">
+                        <div class="mockup-frame">
+                            <div class="mockup-bar">
+                                <div class="mockup-dot red"></div>
+                                <div class="mockup-dot yellow"></div>
+                                <div class="mockup-dot green"></div>
+                            </div>
+                            <div class="mockup-screen" style="aspect-ratio: 4/5; background: #ffffff; display: flex; flex-direction: column; overflow: hidden; padding: 12px; gap: 8px; border: 1px solid var(--border-light);">
+                                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-light); padding-bottom:6px;">
+                                    <span style="font-weight:700; font-size:0.75rem; color:#0891b2;"><i class="fa-solid fa-shield"></i> System Updates</span>
+                                    <span style="font-size:0.62rem; color:#065f46; background:#d1fae5; padding:2px 6px; border-radius:4px; font-weight:600;">Verified</span>
+                                </div>
+                                <div style="flex:1; display:flex; flex-direction:column; gap:8px; font-size:0.7rem; justify-content:center;">
+                                    <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:8px; padding:8px;">
+                                        <div style="font-weight:700; color:var(--text-primary); display:flex; align-items:center; gap:6px; margin-bottom:2px;"><i class="fa-solid fa-square-check" style="color:#0891b2;"></i> CRUD Kelas</div>
+                                        <div style="color:var(--text-secondary); font-size:0.65rem;">Stats cards, searchable list, dynamic modals.</div>
+                                    </div>
+                                    <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:8px; padding:8px;">
+                                        <div style="font-weight:700; color:var(--text-primary); display:flex; align-items:center; gap:6px; margin-bottom:2px;"><i class="fa-solid fa-square-check" style="color:var(--accent-rose);"></i> Akses Lintas Kelas</div>
+                                        <div style="color:var(--text-secondary); font-size:0.65rem;">Wali Kelas can log violations for any student.</div>
+                                    </div>
+                                    <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:8px; padding:8px;">
+                                        <div style="font-weight:700; color:var(--text-primary); display:flex; align-items:center; gap:6px; margin-bottom:2px;"><i class="fa-solid fa-square-check" style="color:var(--accent-purple);"></i> Automated Tests</div>
+                                        <div style="color:var(--text-secondary); font-size:0.65rem;">KelasTest &amp; ViolationLogTest: Passed.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-footer">
+                    <span>Pembaruan Struktur Kelas &amp; Perluasan Hak Akses Staf</span>
+                    <span>Halaman 11 dari 12</span>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SLIDE 12: OUTRO
+                 ========================================== -->
+            <div class="slide cover-slide" data-index="11" data-cat="Penutup">
+                <div class="cover-logo" style="color: var(--accent-emerald); background: var(--accent-emerald-light);">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h1 class="cover-title">Sistem Siap Dioperasikan</h1>
+                <p class="cover-subtitle" style="max-width: 750px;">
+                    Dengan terwujudnya digitalisasi tata tertib ini, penegakan kedisiplinan di SMKN 2 Jakarta menjadi lebih adil, transparan, objektif, dan responsif.
+                </p>
+                <div style="display: flex; gap: 15px; margin-top: 10px;">
+                    <a href="dashboard" class="btn-primary" style="text-decoration: none; padding: 12px 24px; font-weight: 700;">
+                        <i class="fa-solid fa-gauge"></i> Buka Aplikasi Dashboard
+                    </a>
+                </div>
+                <div class="cover-meta" style="margin-top: 50px;">
+                    <span>Selesai — Terima Kasih</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Controls overlay overlay -->
+        <div class="controls-overlay">
+            <div class="nav-btn-group">
+                <button class="nav-btn" id="prev-btn" title="Slide Sebelumnya">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <button class="nav-btn" id="next-btn" title="Slide Selanjutnya">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="progress-indicator">
+                <div class="progress-dots" id="dots-container">
+                    <!-- Progress dots will be generated here -->
+                </div>
+                <span class="slide-counter" id="slide-num-lbl">1 / 9</span>
+            </div>
+
+            <div class="index-select-wrapper">
+                <button class="index-trigger" id="index-trigger-btn">
+                    <i class="fa-solid fa-list-ul"></i> Daftar Slide
+                </button>
+                <div class="index-dropdown" id="index-menu">
+                    <!-- Options generated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Presentation Engine Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const dotsContainer = document.getElementById('dots-container');
+            const slideCounter = document.getElementById('slide-num-lbl');
+            const indexTrigger = document.getElementById('index-trigger-btn');
+            const indexMenu = document.getElementById('index-menu');
+            
+            let currentSlideIndex = 0;
+            const totalSlides = slides.length;
+
+            // Generate Progress Dots & Dropdown Options
+            slides.forEach((slide, index) => {
+                // Generate Dot
+                const dot = document.createElement('div');
+                dot.className = `progress-dot ${index === 0 ? 'active' : ''}`;
+                dot.setAttribute('data-target', index);
+                dot.addEventListener('click', () => jumpToSlide(index));
+                dotsContainer.appendChild(dot);
+
+                // Generate Dropdown Item
+                const option = document.createElement('div');
+                const cat = slide.getAttribute('data-cat') || `Slide ${index + 1}`;
+                const titleText = slide.querySelector('.slide-title') ? slide.querySelector('.slide-title').textContent : 'Halaman Depan';
+                
+                option.className = `index-option ${index === 0 ? 'active' : ''}`;
+                option.setAttribute('data-target', index);
+                option.innerHTML = `<span style="font-weight:700; font-size:0.75rem; display:block; color:var(--accent-cyan); text-transform:uppercase; margin-bottom:2px;">${cat}</span>${titleText}`;
+                option.addEventListener('click', () => {
+                    jumpToSlide(index);
+                    closeIndexMenu();
+                });
+                indexMenu.appendChild(option);
+            });
+
+            const dots = document.querySelectorAll('.progress-dot');
+            const indexOptions = document.querySelectorAll('.index-option');
+
+            // Slide Navigation Logic
+            const showSlide = (index) => {
+                // Cleanup current slide animation state classes
+                slides.forEach((slide, idx) => {
+                    slide.classList.remove('active', 'prev-exit', 'next-exit');
+                    if (idx < index) {
+                        slide.classList.add('prev-exit');
+                    } else if (idx > index) {
+                        slide.classList.add('next-exit');
+                    }
+                });
+
+                // Set Active Slide
+                slides[index].classList.add('active');
+                currentSlideIndex = index;
+
+                // Update controls
+                dots.forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === index);
+                });
+                
+                indexOptions.forEach((option, idx) => {
+                    option.classList.toggle('active', idx === index);
+                });
+
+                slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+            };
+
+            const jumpToSlide = (index) => {
+                if (index >= 0 && index < totalSlides) {
+                    showSlide(index);
+                }
+            };
+
+            const nextSlide = () => {
+                if (currentSlideIndex < totalSlides - 1) {
+                    showSlide(currentSlideIndex + 1);
+                } else {
+                    // Loop back to start (Optional)
+                    showSlide(0);
+                }
+            };
+
+            const prevSlide = () => {
+                if (currentSlideIndex > 0) {
+                    showSlide(currentSlideIndex - 1);
+                } else {
+                    // Loop to end (Optional)
+                    showSlide(totalSlides - 1);
+                }
+            };
+
+            // Button Event Listeners
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+
+            // Index Menu Toggle
+            const toggleIndexMenu = (e) => {
+                e.stopPropagation();
+                indexMenu.classList.toggle('open');
+            };
+
+            const closeIndexMenu = () => {
+                indexMenu.classList.remove('open');
+            };
+
+            indexTrigger.addEventListener('click', toggleIndexMenu);
+            document.addEventListener('click', closeIndexMenu);
+            indexMenu.addEventListener('click', (e) => e.stopPropagation());
+
+            // Keyboard Navigation Listeners
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                    e.preventDefault();
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    e.preventDefault();
+                    prevSlide();
+                } else if (e.key === 'Home') {
+                    e.preventDefault();
+                    showSlide(0);
+                } else if (e.key === 'End') {
+                    e.preventDefault();
+                    showSlide(totalSlides - 1);
+                }
+            });
+
+            // Touch / Swipe Navigation
+            let startX = 0;
+            let endX = 0;
+            
+            document.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            }, false);
+
+            document.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                const diff = startX - endX;
+                if (Math.abs(diff) > 50) { // Threshold
+                    if (diff > 0) {
+                        nextSlide(); // Swipe Left
+                    } else {
+                        prevSlide(); // Swipe Right
+                    }
+                }
+            }, false);
+
+            // Initialize slide visual state
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>
