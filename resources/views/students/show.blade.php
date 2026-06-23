@@ -24,14 +24,14 @@
                 <button id="btn-sp-dropdown" class="btn-secondary" style="padding: 10px 18px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.2);">
                     <i class="fa-solid fa-envelope-open-text"></i> Cetak Surat SP <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem;"></i>
                 </button>
-                <div id="sp-dropdown-menu" class="glass-panel" style="display: none; position: absolute; right: 0; top: calc(100% + 5px); width: 200px; z-index: 100; padding: 6px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: var(--card-border); background: #15162d;">
-                    <a href="{{ route('reports.print_sp', [$student->id, 'sp' => 1]) }}" target="_blank" style="display: block; padding: 10px 14px; color: var(--text-primary); text-decoration: none; border-radius: 8px; font-size: 0.88rem; transition: background 0.2s;" onmouseover="this.style.background='var(--card-bg-hover)'" onmouseout="this.style.background='transparent'">
+                <div id="sp-dropdown-menu" class="glass-panel" style="display: none; position: absolute; right: 0; top: calc(100% + 5px); width: 200px; z-index: 100; padding: 6px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: var(--card-border); background: var(--dropdown-bg);">
+                    <a href="{{ route('reports.print_sp', [$student->id, 'sp' => 1]) }}" target="_blank" style="display: block; padding: 10px 14px; color: var(--text-primary); text-decoration: none; border-radius: 8px; font-size: 0.88rem; transition: background 0.2s;" onmouseover="this.style.background='var(--dropdown-hover-bg)'" onmouseout="this.style.background='transparent'">
                         Cetak Surat SP 1
                     </a>
-                    <a href="{{ route('reports.print_sp', [$student->id, 'sp' => 2]) }}" target="_blank" style="display: block; padding: 10px 14px; color: var(--text-primary); text-decoration: none; border-radius: 8px; font-size: 0.88rem; transition: background 0.2s;" onmouseover="this.style.background='var(--card-bg-hover)'" onmouseout="this.style.background='transparent'">
+                    <a href="{{ route('reports.print_sp', [$student->id, 'sp' => 2]) }}" target="_blank" style="display: block; padding: 10px 14px; color: var(--text-primary); text-decoration: none; border-radius: 8px; font-size: 0.88rem; transition: background 0.2s;" onmouseover="this.style.background='var(--dropdown-hover-bg)'" onmouseout="this.style.background='transparent'">
                         Cetak Surat SP 2
                     </a>
-                    <a href="{{ route('reports.print_sp', [$student->id, 'sp' => 3]) }}" target="_blank" style="display: block; padding: 10px 14px; color: var(--text-primary); text-decoration: none; border-radius: 8px; font-size: 0.88rem; transition: background 0.2s;" onmouseover="this.style.background='var(--card-bg-hover)'" onmouseout="this.style.background='transparent'">
+                    <a href="{{ route('reports.print_sp', [$student->id, 'sp' => 3]) }}" target="_blank" style="display: block; padding: 10px 14px; color: var(--text-primary); text-decoration: none; border-radius: 8px; font-size: 0.88rem; transition: background 0.2s;" onmouseover="this.style.background='var(--dropdown-hover-bg)'" onmouseout="this.style.background='transparent'">
                         Cetak Surat SP 3 (DO)
                     </a>
                 </div>
