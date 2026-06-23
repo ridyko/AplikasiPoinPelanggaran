@@ -215,7 +215,7 @@
         @elseif($spLevel == 3)
             <h3>SURAT PERINGATAN KETIGA (SP 3 / DROP OUT)</h3>
         @endif
-        <p>Nomor: 421.5 / SP-{{ $spLevel }} / SMKN2 / {{ date('Y') }}</p>
+        <p>Nomor : </p>
     </div>
 
     <p class="main-paragraph">
