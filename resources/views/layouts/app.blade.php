@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Sistem Poin Pelanggaran') - SMKN 2 Jakarta</title>
+    <title>@yield('title', 'SIKAT') - SMKN 2 Jakarta</title>
     <!-- Fonts and Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Theme Script to avoid flash of wrong theme -->
@@ -24,7 +24,7 @@
         <button id="sidebar-toggle" class="sidebar-toggle-btn" title="Buka Menu">
             <i class="fa-solid fa-bars"></i>
         </button>
-        <a href="{{ auth()->check() ? route('dashboard') : url('/') }}" class="mobile-brand">SMKN 2</a>
+        <a href="{{ auth()->check() ? route('dashboard') : url('/') }}" class="mobile-brand">SIKAT</a>
         <!-- Mobile Theme Toggle -->
         <button id="theme-toggle" class="sidebar-toggle-btn" title="Ubah Tema" style="font-size: 1.1rem; width: 40px; height: 40px;">
             <i class="fa-solid fa-moon"></i>
@@ -39,7 +39,7 @@
         <aside class="glass-sidebar" id="glass-sidebar">
             <div class="sidebar-brand">
                 <a href="{{ auth()->check() ? route('dashboard') : url('/') }}" class="nav-logo">
-                    <i class="fa-solid fa-shield-halved"></i> SMKN 2
+                    <i class="fa-solid fa-shield-halved"></i> SIKAT
                 </a>
                 
                 <!-- Close Button for Mobile -->

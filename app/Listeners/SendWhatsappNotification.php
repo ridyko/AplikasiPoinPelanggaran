@@ -71,7 +71,7 @@ class SendWhatsappNotification implements ShouldQueue
                  . "• ≥ 100 Poin: Dikembalikan ke Orang Tua (Drop Out)\n\n"
                  . "Mohon bimbingan dan kerja samanya untuk membina putra/putri Bapak/Ibu agar senantiasa menaati tata tertib sekolah.\n\n"
                  . "Terima kasih.\n"
-                 . "_Sistem Informasi Kedisiplinan SMKN 2 Jakarta_";
+                 . "_SIKAT - Sistem Informasi Ketertiban & Aturan Sekolah SMKN 2 Jakarta_";
 
         // 1. Create a queue entry
         $queueItem = WaQueue::create([

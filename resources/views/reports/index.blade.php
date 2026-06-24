@@ -186,7 +186,7 @@
         <div style="text-align: center; width: 200px;">
             <p>Jakarta, {{ date('d F Y') }}</p>
             <p style="font-weight: 700; margin-top: 50px;">Koordinator Guru BK</p>
-            <p style="margin-top: 5px;">Sistem Poin SMKN 2</p>
+            <p style="margin-top: 5px;">SIKAT SMKN 2</p>
         </div>
     </div>
 </div>

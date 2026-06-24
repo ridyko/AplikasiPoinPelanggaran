@@ -8,7 +8,7 @@
         <div style="text-align: center; margin-bottom: 30px;">
             <i class="fa-solid fa-shield-halved" style="font-size: 3rem; color: var(--accent-cyan); margin-bottom: 15px;"></i>
             <h2 style="font-weight: 700; margin-bottom: 5px;">Login Staff</h2>
-            <p style="color: var(--text-secondary); font-size: 0.9rem;">Sistem Poin Pelanggaran SMKN 2 Jakarta</p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">SIKAT - Sistem Informasi Ketertiban & Aturan Sekolah</p>
         </div>
 
         @if($errors->any())

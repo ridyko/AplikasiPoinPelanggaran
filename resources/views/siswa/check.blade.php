@@ -11,7 +11,7 @@
                 Portal Monitoring Siswa
             </h2>
             <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 5px;">
-                Cek Akumulasi Poin Kedisiplinan & Pelanggaran Siswa SMKN 2 Jakarta
+                Cek Akumulasi Poin Kedisiplinan & Pelanggaran - SIKAT SMKN 2 Jakarta
             </p>
         </div>
 
