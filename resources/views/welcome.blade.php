@@ -39,7 +39,7 @@
     <!-- Hero Section -->
     <main class="landing-hero">
         <div class="landing-badge">
-            • MONITORING KEDISPLINAN V2.0
+            <i class="fa-solid fa-shield-halved" style="margin-right: 4px;"></i> SIKAT v2.0 • Sistem Informasi Ketertiban & Aturan Sekolah
         </div>
         
         <h1 class="landing-title">
@@ -48,7 +48,7 @@
         </h1>
         
         <p class="landing-subtitle">
-            Kelola pencatatan pelanggaran, akumulasi poin kedisiplinan, dan notifikasi otomatis WhatsApp orang tua dalam satu platform terintegrasi yang akurat dan transparan.
+            <strong>SIKAT</strong> adalah <strong>Sistem Informasi Ketertiban & Aturan Sekolah</strong> SMKN 2 Jakarta yang dirancang untuk mengelola pencatatan pelanggaran, akumulasi poin kedisiplinan, serta pengiriman notifikasi WhatsApp otomatis ke orang tua secara akurat dan transparan.
         </p>
         
         <div class="landing-buttons">
