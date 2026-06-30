@@ -34,8 +34,8 @@ return new class extends Migration
             $table->string('nis')->unique();
             $table->string('name');
             $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
-            $table->string('parent_name');
-            $table->string('parent_phone'); // WhatsApp number
+            $table->string('parent_name')->nullable();
+            $table->string('parent_phone')->nullable(); // WhatsApp number
             $table->integer('current_points')->default(0);
             $table->string('status')->default('aktif'); // aktif, skorsing, drop_out, lulus
             $table->string('tahun_ajaran')->default('2025/2026');

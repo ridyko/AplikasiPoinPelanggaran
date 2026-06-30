@@ -19,6 +19,10 @@ Route::get('/', function () {
 Route::get('/cek-poin', [PublicSiswaController::class, 'showCheckForm'])->name('siswa.check');
 Route::post('/cek-poin', [PublicSiswaController::class, 'check'])->name('siswa.check.post');
 
+// Public student contact self-completion
+Route::get('/lengkapi-data', [PublicSiswaController::class, 'showLengkapiDataForm'])->name('siswa.lengkapi_data');
+Route::post('/lengkapi-data', [PublicSiswaController::class, 'submitLengkapiData'])->name('siswa.lengkapi_data.post');
+
 // Guest routes (Auth)
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

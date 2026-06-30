@@ -58,8 +58,8 @@ class StudentController extends Controller
             'nis' => 'required|numeric|digits:6|unique:students,nis',
             'name' => 'required|string|max:255',
             'class_id' => 'required|exists:classes,id',
-            'parent_name' => 'required|string|max:255',
-            'parent_phone' => 'required|string|max:20',
+            'parent_name' => 'nullable|string|max:255',
+            'parent_phone' => 'nullable|string|max:20',
             'tahun_ajaran' => 'required|string|max:20',
         ]);
 
@@ -111,8 +111,8 @@ class StudentController extends Controller
             'nis' => 'required|numeric|digits:6|unique:students,nis,' . $student->id,
             'name' => 'required|string|max:255',
             'class_id' => 'required|exists:classes,id',
-            'parent_name' => 'required|string|max:255',
-            'parent_phone' => 'required|string|max:20',
+            'parent_name' => 'nullable|string|max:255',
+            'parent_phone' => 'nullable|string|max:20',
             'status' => 'required|in:aktif,skorsing,drop_out,lulus',
             'tahun_ajaran' => 'required|string|max:20',
         ]);
@@ -270,14 +270,6 @@ class StudentController extends Controller
                     $rowErrors[] = "Tahun Ajaran wajib diisi.";
                 }
 
-                if (!$parentName) {
-                    $rowErrors[] = "Nama Wali wajib diisi.";
-                }
-
-                if (!$parentPhone) {
-                    $rowErrors[] = "No WhatsApp Wali wajib diisi.";
-                }
-
                 if (count($rowErrors) > 0) {
                     $errors[] = "Baris {$rowIndex}: " . implode(' ', $rowErrors);
                     continue;
@@ -293,8 +285,8 @@ class StudentController extends Controller
                         'name' => $name,
                         'class_id' => $classId,
                         'tahun_ajaran' => $tahunAjaran,
-                        'parent_name' => $parentName,
-                        'parent_phone' => $parentPhone,
+                        'parent_name' => $parentName ?: null,
+                        'parent_phone' => $parentPhone ?: null,
                     ]);
                     $updatedCount++;
                 } else {
@@ -303,8 +295,8 @@ class StudentController extends Controller
                         'name' => $name,
                         'class_id' => $classId,
                         'tahun_ajaran' => $tahunAjaran,
-                        'parent_name' => $parentName,
-                        'parent_phone' => $parentPhone,
+                        'parent_name' => $parentName ?: null,
+                        'parent_phone' => $parentPhone ?: null,
                         'current_points' => 0,
                         'status' => 'aktif',
                     ]);

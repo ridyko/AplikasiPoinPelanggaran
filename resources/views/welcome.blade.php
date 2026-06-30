@@ -27,6 +27,9 @@
             </div>
         </div>
         <div class="landing-nav-actions">
+            <a href="{{ route('siswa.lengkapi_data') }}" class="landing-btn-secondary" style="padding: 10px 18px; border-radius: 12px; font-size: 0.9rem; margin-right: 12px; border: 1px solid rgba(14, 165, 233, 0.3); background: rgba(14, 165, 233, 0.05); color: #0ea5e9;">
+                LENGKAPI DATA WALI
+            </a>
             <a href="{{ route('login') }}" class="landing-btn-primary" style="padding: 10px 24px; border-radius: 12px; font-size: 0.9rem; box-shadow: none;">
                 MASUK
             </a>
