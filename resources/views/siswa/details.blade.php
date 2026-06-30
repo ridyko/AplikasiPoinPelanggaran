@@ -20,7 +20,7 @@
             </div>
             <div>
                 <h2 style="font-weight: 700; font-size: 1.4rem;">{{ $student->name }}</h2>
-                <p style="color: var(--text-secondary); font-size: 0.9rem;">NISN: {{ $student->nisn }}</p>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">NIS: {{ $student->nis }}</p>
             </div>
         </div>
 

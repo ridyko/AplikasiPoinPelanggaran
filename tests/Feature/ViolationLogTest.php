@@ -55,7 +55,7 @@ class ViolationLogTest extends TestCase
 
         // 4. Setup Student A (Class A) and Student B (Class B)
         $this->studentA = Student::create([
-            'nisn' => '1111111111',
+            'nis' => '111111',
             'name' => 'Student Class A',
             'class_id' => $this->kelasA->id,
             'parent_name' => 'Parent A',
@@ -66,7 +66,7 @@ class ViolationLogTest extends TestCase
         ]);
 
         $this->studentB = Student::create([
-            'nisn' => '2222222222',
+            'nis' => '222222',
             'name' => 'Student Class B',
             'class_id' => $this->kelasB->id,
             'parent_name' => 'Parent B',

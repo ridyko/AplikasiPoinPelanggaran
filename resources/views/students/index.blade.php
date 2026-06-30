@@ -105,7 +105,7 @@
         <!-- Filters Form -->
         <form action="{{ route('students') }}" method="GET" style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; flex: 1;">
             <div style="flex: 1.5; min-width: 180px;">
-                <input type="text" name="search" id="search" class="form-control" placeholder="Cari Nama / NISN..." value="{{ $search }}" style="padding: 10px 16px;">
+                <input type="text" name="search" id="search" class="form-control" placeholder="Cari Nama / NIS..." value="{{ $search }}" style="padding: 10px 16px;">
             </div>
             
             <div style="width: 160px;">
@@ -174,7 +174,7 @@
             <table class="table-glass">
                 <thead>
                     <tr>
-                        <th>NISN</th>
+                        <th>NIS</th>
                         <th>Nama</th>
                         <th>Kelas</th>
                         <th>Thn Ajaran</th>
@@ -190,7 +190,7 @@
                 <tbody>
                     @foreach($students as $student)
                         <tr>
-                            <td style="font-family: monospace; font-size: 0.95rem;">{{ $student->nisn }}</td>
+                            <td style="font-family: monospace; font-size: 0.95rem;">{{ $student->nis }}</td>
                             <td style="font-weight: 600;">
                                 <a href="{{ route('students.show', $student->id) }}" class="student-detail-link" style="color: var(--text-primary); text-decoration: none; border-bottom: 1px dashed var(--text-muted); transition: all 0.2s;" title="Lihat detail riwayat poin">
                                     {{ $student->name }}
@@ -265,8 +265,8 @@
 
             <div class="responsive-grid-2">
                 <div class="form-group">
-                    <label for="nisn" class="form-label">NISN</label>
-                    <input type="text" name="nisn" id="nisn" class="form-control" placeholder="e.g. 0081234567" required value="{{ old('nisn') }}">
+                    <label for="nis" class="form-label">NIS</label>
+                    <input type="text" name="nis" id="nis" class="form-control" placeholder="e.g. 990001" required value="{{ old('nis') }}">
                 </div>
 
                 <div class="form-group">

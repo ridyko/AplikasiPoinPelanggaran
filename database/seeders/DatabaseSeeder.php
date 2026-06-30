@@ -163,7 +163,7 @@ class DatabaseSeeder extends Seeder
         $namaDepanPerem = ['Ayu','Bella','Citra','Desi','Evi','Fitri','Gita','Hani','Indah','Julia','Kartika','Lina','Maya','Nisa','Okta','Putri','Rini','Sari','Tia','Ulfa'];
         $namaBelakang   = ['Pratama','Santoso','Hidayat','Nugroho','Setiawan','Wijaya','Kusuma','Saputra','Purnama','Rahayu','Dewi','Lestari','Anggraeni','Cahyani','Utami','Andriani','Susanti','Wulandari','Permata','Sanjaya'];
         $namaOrangtua   = ['Hartono','Suharto','Bambang','Supriyadi','Wahyudi','Sudirman','Mulyono','Haryadi','Joko Widodo','Agus Salim','Siti Rahayu','Endang','Mulyati','Sri Wahyuni','Retno','Slamet','Poniman','Margono','Triyono','Darmin'];
-        $prefixNISN = 9900;
+        $prefixNIS = 990000;
 
         $siswaIndex = 0;
         $allStudents = [];
@@ -176,11 +176,11 @@ class DatabaseSeeder extends Seeder
                     : $namaDepanPerem[($ki * 5 + $s) % count($namaDepanPerem)];
                 $namaBelak   = $namaBelakang[($siswaIndex) % count($namaBelakang)];
                 $namaOrtu    = $namaOrangtua[($siswaIndex) % count($namaOrangtua)];
-                $nisn        = sprintf('%010d', $prefixNISN + $siswaIndex + 1);
+                $nis        = sprintf('%06d', $prefixNIS + $siswaIndex + 1);
                 $phoneOrtu   = '08' . str_pad(rand(100000000, 999999999), 9, '0', STR_PAD_LEFT);
 
                 $student = Student::create([
-                    'nisn'           => $nisn,
+                    'nis'            => $nis,
                     'name'           => $namaDepan . ' ' . $namaBelak,
                     'class_id'       => $k->id,
                     'parent_name'    => $namaOrtu,

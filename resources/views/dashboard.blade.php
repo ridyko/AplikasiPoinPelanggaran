@@ -310,7 +310,7 @@
                     <tr>
                         <th style="width: 36px;">#</th>
                         <th>Nama Siswa</th>
-                        <th>NISN</th>
+                        <th>NIS</th>
                         <th>Total Poin</th>
                         <th>Status</th>
                         <th style="text-align: center;">Aksi</th>
@@ -334,7 +334,7 @@
                                 $riskDot   = '#10b981';
                             }
                         @endphp
-                        <tr data-search="{{ strtolower($siswa->name . ' ' . $siswa->nisn) }}"
+                        <tr data-search="{{ strtolower($siswa->name . ' ' . $siswa->nis) }}"
                             style="{{ $pts >= 50 ? 'background: rgba(239,68,68,0.04);' : ($pts >= 25 ? 'background: rgba(245,158,11,0.03);' : '') }}">
                             <td style="color: var(--text-muted); font-size: 0.82rem;">{{ $i + 1 }}</td>
                             <td>
@@ -343,7 +343,7 @@
                                     <span style="font-weight: 600; color: var(--text-primary);">{{ $siswa->name }}</span>
                                 </div>
                             </td>
-                            <td style="font-size: 0.88rem; color: var(--text-secondary); font-family: monospace;">{{ $siswa->nisn }}</td>
+                            <td style="font-size: 0.88rem; color: var(--text-secondary); font-family: monospace;">{{ $siswa->nis }}</td>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 10px;">
                                     {{-- Progress bar --}}

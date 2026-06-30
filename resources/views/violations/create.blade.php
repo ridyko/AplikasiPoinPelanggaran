@@ -28,7 +28,7 @@
                         <option value="" disabled selected>Pilih Siswa</option>
                         @foreach($students as $s)
                             <option value="{{ $s->id }}" {{ old('student_id', $selectedStudentId) == $s->id ? 'selected' : '' }}>
-                                {{ $s->name }} (NISN: {{ $s->nisn }}) - Kelas: {{ $s->kelas->class_name }}
+                                {{ $s->name }} (NIS: {{ $s->nis }}) - Kelas: {{ $s->kelas->class_name }}
                             </option>
                         @endforeach
                     </select>                    
@@ -40,13 +40,13 @@
                     <div class="searchable-select-dropdown">
                         <div class="dropdown-search-box">
                             <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                            <input type="text" class="dropdown-search-input" placeholder="Cari nama, NISN, atau kelas...">
+                            <input type="text" class="dropdown-search-input" placeholder="Cari nama, NIS, atau kelas...">
                         </div>
                         <div class="dropdown-options">
                             @foreach($students as $s)
-                                <div class="dropdown-option-item" data-value="{{ $s->id }}" data-search="{{ strtolower($s->name . ' ' . $s->nisn . ' ' . $s->kelas->class_name) }}">
+                                <div class="dropdown-option-item" data-value="{{ $s->id }}" data-search="{{ strtolower($s->name . ' ' . $s->nis . ' ' . $s->kelas->class_name) }}">
                                     <span class="option-title">{{ $s->name }}</span>
-                                    <span class="option-subtitle">NISN: {{ $s->nisn }} • Kelas: {{ $s->kelas->class_name }}</span>
+                                    <span class="option-subtitle">NIS: {{ $s->nis }} • Kelas: {{ $s->kelas->class_name }}</span>
                                 </div>
                             @endforeach
                         </div>

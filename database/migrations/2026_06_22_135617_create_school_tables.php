@@ -31,7 +31,7 @@ return new class extends Migration
         // 3. Students
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('nisn')->unique();
+            $table->string('nis')->unique();
             $table->string('name');
             $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
             $table->string('parent_name');

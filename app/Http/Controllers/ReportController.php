@@ -216,7 +216,7 @@ class ReportController extends Controller
         $headers = [
             'A4' => 'No',
             'B4' => 'Tanggal Kejadian',
-            'C4' => 'NISN',
+            'C4' => 'NIS',
             'D4' => 'Nama Siswa',
             'E4' => 'Kelas',
             'F4' => 'Pelanggaran',
@@ -238,7 +238,7 @@ class ReportController extends Controller
         foreach ($logs as $log) {
             $sheet->setCellValue('A' . $row, $no++);
             $sheet->setCellValue('B' . $row, date('d-m-Y', strtotime($log->date_occurred)));
-            $sheet->setCellValue('C' . $row, "'" . $log->student->nisn); // quote prefix to force string (NISN starts with 0 often)
+            $sheet->setCellValue('C' . $row, "'" . $log->student->nis); // quote prefix to force string (NIS starts with 0 often)
             $sheet->setCellValue('D' . $row, $log->student->name);
             $sheet->setCellValue('E' . $row, $log->student->kelas ? $log->student->kelas->class_name : '-');
             $sheet->setCellValue('F' . $row, $log->violation->violation_name);

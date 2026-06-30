@@ -129,7 +129,7 @@
                 <tr>
                     <th style="width: 50px; text-align: center;">No</th>
                     <th style="width: 130px; text-align: center;">Tanggal</th>
-                    <th style="width: 120px; text-align: center;">NISN</th>
+                    <th style="width: 120px; text-align: center;">NIS</th>
                     <th>Nama Siswa</th>
                     <th style="width: 100px; text-align: center;">Kelas</th>
                     <th>Pelanggaran</th>
@@ -143,7 +143,7 @@
                     <tr>
                         <td style="text-align: center;">{{ $index + 1 }}</td>
                         <td style="text-align: center;">{{ date('d-m-Y', strtotime($log->date_occurred)) }}</td>
-                        <td style="text-align: center;">{{ $log->student->nisn }}</td>
+                        <td style="text-align: center;">{{ $log->student->nis }}</td>
                         <td style="font-weight: 600;">
                             <a href="{{ route('students.show', $log->student->id) }}" class="student-detail-link no-print" style="color: var(--text-primary); text-decoration: none; border-bottom: 1px dashed var(--text-secondary); transition: all 0.2s;">
                                 {{ $log->student->name }}

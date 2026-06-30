@@ -233,8 +233,8 @@
                 <span class="profile-value">: <strong>{{ $student->name }}</strong></span>
             </div>
             <div class="profile-group">
-                <span class="profile-label">NISN</span>
-                <span class="profile-value">: {{ $student->nisn }}</span>
+                <span class="profile-label">NIS</span>
+                <span class="profile-value">: {{ $student->nis }}</span>
             </div>
             <div class="profile-group">
                 <span class="profile-label">Kelas</span>

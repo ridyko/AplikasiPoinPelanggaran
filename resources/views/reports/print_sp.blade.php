@@ -229,8 +229,8 @@
             <td>: {{ $student->name }}</td>
         </tr>
         <tr>
-            <td class="bio-label">NISN</td>
-            <td>: {{ $student->nisn }}</td>
+            <td class="bio-label">NIS</td>
+            <td>: {{ $student->nis }}</td>
         </tr>
         <tr>
             <td class="bio-label">Kelas</td>

@@ -35,7 +35,7 @@ class StudentController extends Controller
         if ($search) {
             $query->where(function($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('nisn', 'like', "%{$search}%");
+                  ->orWhere('nis', 'like', "%{$search}%");
             });
         }
 
@@ -55,7 +55,7 @@ class StudentController extends Controller
         }
 
         $validated = $request->validate([
-            'nisn' => 'required|numeric|unique:students,nisn',
+            'nis' => 'required|numeric|digits:6|unique:students,nis',
             'name' => 'required|string|max:255',
             'class_id' => 'required|exists:classes,id',
             'parent_name' => 'required|string|max:255',
@@ -108,7 +108,7 @@ class StudentController extends Controller
         }
 
         $validated = $request->validate([
-            'nisn' => 'required|numeric|unique:students,nisn,' . $student->id,
+            'nis' => 'required|numeric|digits:6|unique:students,nis,' . $student->id,
             'name' => 'required|string|max:255',
             'class_id' => 'required|exists:classes,id',
             'parent_name' => 'required|string|max:255',
@@ -169,7 +169,7 @@ class StudentController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
         
         // Headers
-        $sheet->setCellValue('A1', 'NISN');
+        $sheet->setCellValue('A1', 'NIS');
         $sheet->setCellValue('B1', 'Nama Siswa');
         $sheet->setCellValue('C1', 'Kelas');
         $sheet->setCellValue('D1', 'Tahun Ajaran');
@@ -177,7 +177,7 @@ class StudentController extends Controller
         $sheet->setCellValue('F1', 'No WhatsApp Wali');
         
         // Example Row
-        $sheet->setCellValue('A2', '0081234567');
+        $sheet->setCellValue('A2', '990001');
         $sheet->setCellValue('B2', 'Aditya Pratama');
         $sheet->setCellValue('C2', 'XII RPL 1');
         $sheet->setCellValue('D2', '2025/2026');
@@ -236,7 +236,7 @@ class StudentController extends Controller
                     continue;
                 }
 
-                $nisn = trim($row['A'] ?? '');
+                $nis = trim($row['A'] ?? '');
                 $name = trim($row['B'] ?? '');
                 $className = trim($row['C'] ?? '');
                 $tahunAjaran = trim($row['D'] ?? '');
@@ -245,10 +245,12 @@ class StudentController extends Controller
 
                 $rowErrors = [];
 
-                if (!$nisn) {
-                    $rowErrors[] = "NISN wajib diisi.";
-                } elseif (!is_numeric($nisn)) {
-                    $rowErrors[] = "NISN harus berupa angka.";
+                if (!$nis) {
+                    $rowErrors[] = "NIS wajib diisi.";
+                } elseif (!is_numeric($nis)) {
+                    $rowErrors[] = "NIS harus berupa angka.";
+                } elseif (strlen($nis) !== 6) {
+                    $rowErrors[] = "NIS harus terdiri dari 6 digit angka.";
                 }
 
                 if (!$name) {
@@ -284,7 +286,7 @@ class StudentController extends Controller
                 // If no errors, process database save/update
                 $classId = $classesMap[strtolower($className)];
 
-                $student = Student::where('nisn', $nisn)->first();
+                $student = Student::where('nis', $nis)->first();
 
                 if ($student) {
                     $student->update([
@@ -297,7 +299,7 @@ class StudentController extends Controller
                     $updatedCount++;
                 } else {
                     Student::create([
-                        'nisn' => $nisn,
+                        'nis' => $nis,
                         'name' => $name,
                         'class_id' => $classId,
                         'tahun_ajaran' => $tahunAjaran,

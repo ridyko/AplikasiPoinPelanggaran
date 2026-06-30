@@ -30,8 +30,8 @@
 
             <div class="responsive-grid-2">
                 <div class="form-group">
-                    <label for="nisn" class="form-label">NISN</label>
-                    <input type="text" name="nisn" id="nisn" class="form-control" placeholder="e.g. 0081234567" required value="{{ old('nisn', $student->nisn) }}">
+                    <label for="nis" class="form-label">NIS</label>
+                    <input type="text" name="nis" id="nis" class="form-control" placeholder="e.g. 990001" required value="{{ old('nis', $student->nis) }}">
                 </div>
 
                 <div class="form-group">
@@ -111,7 +111,7 @@
                 {{ strtoupper(substr($student->name, 0, 1)) }}
             </div>
             <h3 style="font-weight: 700; font-size: 1.25rem; color: var(--text-primary);">{{ $student->name }}</h3>
-            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 4px;">NISN: {{ $student->nisn }}</p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 4px;">NIS: {{ $student->nis }}</p>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 15px;">

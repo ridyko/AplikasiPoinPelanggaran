@@ -137,7 +137,7 @@ class KelasTest extends TestCase
         ]);
 
         Student::create([
-            'nisn' => '1234567890',
+            'nis' => '123456',
             'name' => 'Test Student',
             'class_id' => $kelas->id,
             'parent_name' => 'Parent',
