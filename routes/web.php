@@ -10,9 +10,9 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\KelasController;
 use Illuminate\Support\Facades\Route;
 
-// Redirect root to public check points page
+// Show landing page on root route
 Route::get('/', function () {
-    return redirect()->route('siswa.check');
+    return view('welcome');
 });
 
 // Public Student/Parent point checking

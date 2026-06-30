@@ -3,49 +3,59 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<div class="dashboard-header">
-    <div>
-        <h1 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.5px;">Dashboard</h1>
-        <p style="color: var(--text-secondary);">
-            @php
-                $roleSubtitle = match(auth()->user()->role) {
-                    'wali_kelas'      => 'Memantau kelas ' . ($myClass->class_name ?? '-'),
-                    'guru'            => 'Catat & pantau pelanggaran siswa',
-                    'wakil_kesiswaan' => 'Monitoring Kedisiplinan & Rekap Pelanggaran',
-                    'guru_bk'         => 'Pusat Kontrol Kedisiplinan Siswa',
-                    default           => 'Pusat Kontrol Kedisiplinan Siswa',
-                };
-            @endphp
-            {{ $roleSubtitle }}
-        </p>
-    </div>
-    
-    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-        @if($isWaliKelas && $myClass)
-            <a href="{{ route('reports.export_excel', ['class_id' => $myClass->id]) }}" class="btn-primary" style="padding: 10px 18px; font-size: 0.88rem; background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); box-shadow: none; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; border-radius: 10px; height: 40px; min-height: 40px; align-self: center;">
-                <i class="fa-solid fa-file-excel"></i> Unduh Rekap Kelas
-            </a>
-        @endif
-
-        @if(auth()->user()->role === 'guru')
-            <a href="{{ route('violations.create') }}" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; border-radius: 10px; height: 40px; min-height: 40px; align-self: center; background: linear-gradient(135deg, rgba(139,92,246,0.3), rgba(6,182,212,0.2)); border: 1px solid rgba(139,92,246,0.4);">
-                <i class="fa-solid fa-circle-plus"></i> Catat Pelanggaran
-            </a>
-        @endif
-
-        <!-- WA Gateway Status Badge -->
-        <div class="glass-panel" style="padding: 10px 20px; border-radius: 12px; display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 500;">Status WA Gateway:</span>
-            @if($waStatus['status'] === 'connected')
-                <span class="badge badge-success"><i class="fa-solid fa-circle-check"></i> Terhubung</span>
-            @elseif($waStatus['status'] === 'connecting')
-                <span class="badge badge-warning"><i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan</span>
-            @elseif($waStatus['status'] === 'disconnected' && !empty($waStatus['qr']))
-                <span class="badge badge-danger"><i class="fa-solid fa-qrcode"></i> Scan QR</span>
-            @else
-                <span class="badge badge-danger"><i class="fa-solid fa-circle-xmark"></i> Offline</span>
-            @endif
+<!-- Dashboard Header Card -->
+<div class="glass-panel" style="padding: 24px 30px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; flex-wrap: wrap; gap: 20px; background: var(--card-bg); border: var(--card-border);">
+    <div style="display: flex; align-items: center; gap: 20px;">
+        <div style="width: 54px; height: 54px; border-radius: 14px; background: #0284c7; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #fff; box-shadow: 0 8px 16px rgba(2, 132, 199, 0.2);">
+            <i class="fa-solid fa-chart-line"></i>
         </div>
+        <div>
+            <h2 style="font-weight: 800; font-size: 1.3rem; color: var(--text-primary); text-transform: uppercase; margin: 0; letter-spacing: 0.5px;">DASHBOARD MONITORING</h2>
+            <p style="color: var(--text-secondary); margin: 4px 0 0 0; font-size: 0.92rem;">
+                @php
+                    $roleSubtitle = match(auth()->user()->role) {
+                        'wali_kelas'      => 'Halo ' . auth()->user()->name . ', memantau kelas ' . ($myClass->class_name ?? '-'),
+                        'guru'            => 'Halo ' . auth()->user()->name . ', catat & pantau pelanggaran siswa',
+                        'wakil_kesiswaan' => 'Halo ' . auth()->user()->name . ', monitoring kedisiplinan & rekap pelanggaran',
+                        'guru_bk'         => 'Halo ' . auth()->user()->name . ', pusat kontrol kedisiplinan siswa',
+                        default           => 'Halo ' . auth()->user()->name . ', selamat datang kembali di SIKAT.',
+                    };
+                @endphp
+                {{ $roleSubtitle }}
+            </p>
+        </div>
+    </div>
+    <div class="glass-panel" style="padding: 8px 16px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; background: var(--card-bg); border: var(--card-border);">
+        <i class="fa-regular fa-calendar"></i> {{ date('d F Y') }}
+    </div>
+</div>
+
+<!-- Dashboard Actions & WA Status -->
+<div style="display: flex; justify-content: flex-end; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 30px;">
+    @if($isWaliKelas && $myClass)
+        <a href="{{ route('reports.export_excel', ['class_id' => $myClass->id]) }}" class="btn-primary" style="padding: 10px 18px; font-size: 0.88rem; background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); box-shadow: none; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; border-radius: 10px; height: 40px; min-height: 40px; align-self: center;">
+            <i class="fa-solid fa-file-excel"></i> Unduh Rekap Kelas
+        </a>
+    @endif
+
+    @if(auth()->user()->role === 'guru')
+        <a href="{{ route('violations.create') }}" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; border-radius: 10px; height: 40px; min-height: 40px; align-self: center; background: linear-gradient(135deg, rgba(139,92,246,0.3), rgba(6,182,212,0.2)); border: 1px solid rgba(139,92,246,0.4);">
+            <i class="fa-solid fa-circle-plus"></i> Catat Pelanggaran
+        </a>
+    @endif
+
+    <!-- WA Gateway Status Badge -->
+    <div class="glass-panel" style="padding: 10px 20px; border-radius: 12px; display: flex; align-items: center; gap: 10px; background: var(--card-bg); border: var(--card-border);">
+        <span style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 500;">Status WA Gateway:</span>
+        @if($waStatus['status'] === 'connected')
+            <span class="badge badge-success"><i class="fa-solid fa-circle-check"></i> Terhubung</span>
+        @elseif($waStatus['status'] === 'connecting')
+            <span class="badge badge-warning"><i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan</span>
+        @elseif($waStatus['status'] === 'disconnected' && !empty($waStatus['qr']))
+            <span class="badge badge-danger"><i class="fa-solid fa-qrcode"></i> Scan QR</span>
+        @else
+            <span class="badge badge-danger"><i class="fa-solid fa-circle-xmark"></i> Offline</span>
+        @endif
     </div>
 </div>
 

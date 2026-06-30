@@ -19,12 +19,16 @@
     @yield('styles')
 </head>
 <body>
+    @auth
     <!-- Mobile Header -->
     <header class="mobile-header">
         <button id="sidebar-toggle" class="sidebar-toggle-btn" title="Buka Menu">
             <i class="fa-solid fa-bars"></i>
         </button>
-        <a href="{{ auth()->check() ? route('dashboard') : url('/') }}" class="mobile-brand">SIKAT</a>
+        <a href="{{ auth()->check() ? route('dashboard') : url('/') }}" class="mobile-brand" style="display: flex; align-items: center; gap: 8px;">
+            <img src="{{ asset('images/smkn2-logo.png') }}" alt="Logo SMKN 2" style="width: 28px; height: auto;">
+            <span>SIKAT</span>
+        </a>
         <!-- Mobile Theme Toggle -->
         <button id="theme-toggle" class="sidebar-toggle-btn" title="Ubah Tema" style="font-size: 1.1rem; width: 40px; height: 40px;">
             <i class="fa-solid fa-moon"></i>
@@ -33,13 +37,16 @@
 
     <!-- Sidebar Backdrop Overlay -->
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    @endauth
 
-    <div class="app-layout">
+    <div class="app-layout {{ !auth()->check() ? 'guest-mode' : '' }}">
         <!-- Sidebar Navigation -->
+        @auth
         <aside class="glass-sidebar" id="glass-sidebar">
             <div class="sidebar-brand">
-                <a href="{{ auth()->check() ? route('dashboard') : url('/') }}" class="nav-logo">
-                    <i class="fa-solid fa-shield-halved"></i> SIKAT
+                <a href="{{ auth()->check() ? route('dashboard') : url('/') }}" class="nav-logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="{{ asset('images/smkn2-logo.png') }}" alt="Logo SMKN 2" style="width: 32px; height: auto;">
+                    <span>SIKAT</span>
                 </a>
                 
                 <!-- Close Button for Mobile -->
@@ -128,6 +135,7 @@
                 </button>
             </div>
         </aside>
+        @endauth
 
         <!-- Main Content Area -->
         <div class="main-content">
